@@ -36,6 +36,10 @@
     </header>
     <main>
         <section class="main">
+            <span class="main__cube_full"></span>
+            <span class="main__cube_half"></span>
+            <span class="main__bg_rounded"></span>
+            <span class="main__bg_rounded"></span>
             <div class="main__container container">
                 <div class="main__content">
                     <h1 class="main__title">Качественное <span>строительство</span> под ключ</h1>
@@ -145,21 +149,21 @@
                         <div class="calculator__formGroup">
                             <label class="calculator__name">Тип проектa</label>
                             <div class="calculator__radioButtons">
-                                <div class="calculator__radioButton">
+                                <div class="calculator__radioButton" id="home">
                                     <img src="image/grayHomesvg.svg" alt="">
                                     <label class="calculator__typeName">Дом</label>
                                 </div>
-                                <div class="calculator__radioButton">
+                                <div class="calculator__radioButton" id="fence">
                                     <img src="image/grayHomesvg.svg" alt="">
-                                    <label class="calculator__typeName" >Дом</label>
+                                    <label class="calculator__typeName" >Забор</label>
                                 </div>
-                                <div class="calculator__radioButton">
+                                <div class="calculator__radioButton" id="roof">
                                     <img src="image/grayHomesvg.svg" alt="">
-                                    <label class="calculator__typeName">Дом</label>
+                                    <label class="calculator__typeName">Навес</label>
                                 </div>
-                                <div class="calculator__radioButton">
+                                <div class="calculator__radioButton" id="window">
                                     <img src="image/grayHomesvg.svg" alt="">
-                                    <label class="calculator__typeName">Дом</label>
+                                    <label class="calculator__typeName">Окна</label>
                                 </div>
                             </div>
                         </div>
@@ -167,9 +171,9 @@
                             <div class="calculator__input">
                                 <div class="calculator__label">
                                     <label class="calculator__nameInput">Площадь дома (м<sup>2</sup>)</label>
-                                    <p class="calculator__inputNumber">151</p>
+                                    <p class="calculator__inputNumber"  id="rangeValue">151</p>
                                 </div>
-                                <input class="calculator__range"  type="range">
+                                <input class="calculator__range" id="areaRange" min="0" max="300" value="151" type="range">
                             </div>
                         </div>
                         <div class="calculator__formGroup">
@@ -391,5 +395,33 @@
             </div>
         </div>
     </footer>
+    <script>
+        //RangeNumber
+        const rangeInput = document.getElementById('areaRange');
+        const rangeValue = document.getElementById('rangeValue');
+
+        rangeInput.addEventListener('input', function() {
+            rangeValue.textContent = this.value;
+        });
+
+        //RadioButton
+        const radioInputs = document.querySelectorAll('.calculator__radioButton');
+        let selectedRadio;
+
+        radioInputs.forEach(input => {
+            input.addEventListener('click', () => {
+                if (selectedRadio) {
+                    selectedRadio.checked = false;
+                    selectedRadio.classList.remove('calculator__radioButton_active');
+                }
+                selectedRadio = input;
+                input.checked = true;
+                if (selectedRadio.checked) {
+                    selectedRadio.classList.add('calculator__radioButton_active');
+                }
+            });
+        });
+        
+    </script>
 </body>
 </html>
