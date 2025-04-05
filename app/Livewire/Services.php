@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Livewire;
+
+use App\Models\Service;
+use Livewire\Attributes\Computed;
+use Livewire\Component;
+
+class Services extends Component
+{
+
+    #[Computed()]
+    public function services()
+    {
+        return Service::where('is_active', true)->get();
+    }
+
+    public function render()
+    {
+        return view('livewire.services', [
+            'services' => $this->services(),
+        ]);
+    }
+}

@@ -1,0 +1,258 @@
+@extends('layout.app')
+@section('title', $title)
+@section('keywords', $keywords)
+@section('description', $description)
+
+@section('content')
+    <section class="main">
+        <span class="main__cube_full"></span>
+        <span class="main__cube_half"></span>
+        <span class="main__bg_rounded"></span>
+        <span class="main__bg_rounded"></span>
+        <div class="main__container container">
+            <div class="main__content">
+                <h1 class="main__title">Качественное <span>строительство</span> под ключ</h1>
+                <p class="main__subtitle">Строительство малоэтажных домов, заборов, навесов, монтаж окон</p>
+                <div class="main__buttons">
+                    <button class="main__button">Рассчитать стоимость</button>
+                    <button class="main__button">Каталог услуг</button>
+                </div>
+                <div class="main__advantages">
+                    <livewire:advantage />
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="services">
+        <div class="services__container container">
+            <div class="services__content">
+                <div class="services__main">
+                    <h1 class="services__title">Наши услуги</h1>
+                    <p class="services__subtitle">Профессиональные строительные услуги для вашего дома и бизнеса</p>
+                </div>
+                <div class="services__cards">
+                    <livewire:services />
+                </div>
+                <button class="services__button">
+                    Показать еще
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="calculator">
+        <div class="calculator__container container">
+            <div class="calculator__content">
+                <div class="calculator__main">
+                    <h1 class="calculator__title">Расчитайте стоимость услуг</h1>
+                    <p class="calculator__subtitle">Получите предварительную оценку стоимости вашего проекта с помощью нашего онлайн-калькулятора
+                    </p>
+                </div>
+                <div class="calculator__form">
+                    <div class="calculator__formGroup">
+                        <label class="calculator__name">Тип проектa</label>
+                        <div class="calculator__radioButtons">
+                            <div class="calculator__radioButton" id="home">
+                                <img src="image/grayHomesvg.svg" alt="">
+                                <label class="calculator__typeName">Дом</label>
+                            </div>
+                            <div class="calculator__radioButton" id="fence">
+                                <img src="image/grayHomesvg.svg" alt="">
+                                <label class="calculator__typeName" >Забор</label>
+                            </div>
+                            <div class="calculator__radioButton" id="roof">
+                                <img src="image/grayHomesvg.svg" alt="">
+                                <label class="calculator__typeName">Навес</label>
+                            </div>
+                            <div class="calculator__radioButton" id="window">
+                                <img src="image/grayHomesvg.svg" alt="">
+                                <label class="calculator__typeName">Окна</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calculator__formGroup">
+                        <div class="calculator__input">
+                            <div class="calculator__label">
+                                <label class="calculator__nameInput">Площадь дома (м<sup>2</sup>)</label>
+                                <p class="calculator__inputNumber"  id="rangeValue">151</p>
+                            </div>
+                            <input class="calculator__range" id="areaRange" min="0" max="300" value="151" type="range">
+                        </div>
+                    </div>
+                    <div class="calculator__formGroup">
+                        <div class="calculator__select">
+                            <label class="calculator__nameInput">Материал</label>
+                            <select class="calculator__selectOptions">
+                                <option class="calculator__option" value="">Выберите материал</option>
+                                <option class="calculator__option" value="brick">Кирпич</option>
+                                <option class="calculator__option" value="panel">Панель</option>
+                                <option class="calculator__option" value="block">Блок</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="calculator__formGroup">
+                        <div class="calculator__services">
+                            <label class="calculator__nameInput">Доп. услуги</label>
+                            <div class="calculator__toggles">
+                                <div class="calculator__toggle">
+                                    <label class="calculator__switch">
+                                        <input type="checkbox">
+                                        <span class="calculator__slider"></span>
+                                    </label>
+                                    <p class="calculator__toggleText">Проектирование (+15%)</p>
+                                </div>
+                                <div class="calculator__toggle">
+                                    <label class="calculator__switch">
+                                        <input type="checkbox">
+                                        <span class="calculator__slider"></span>
+                                    </label>
+                                    <p class="calculator__toggleText">Уборка территории (+3%)</p>
+                                </div>
+                                <div class="calculator__toggle">
+                                    <label class="calculator__switch">
+                                        <input type="checkbox">
+                                        <span class="calculator__slider"></span>
+                                    </label>
+                                    <p class="calculator__toggleText">Доставка материалов (+5%)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calculator__result">
+                        <div class="calculator__resultGroup">
+                            <p class="calculator__resultText">Предварительная стоимость:</p>
+                            <p class="calculator__resultPrice">1 530 000 ₽</p>
+                        </div>
+                        <p class="calculator__resultDescr">*Финальная цена может отличаться после осмотра объекта специалистом</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="rent">
+        <div class="rent__container container">
+            <div class="rent__content">
+                <div class="rent__main">
+                    <h1 class="rent__title">Аренда инструментов</h1>
+                    <p class="rent__subtitle">Широкий выбор профессиональных инструментов для ваших строительных проектов</p>
+                </div>
+                <div class="rent__cards">
+                    <div class="rent__card">
+                        <img class="rent__cardImg" src="image/beton.png" alt="Картинка услуги">
+                        <div class="rent__cardName">
+                            <p class="rent__name">Бетономешалка 160Л</p>
+                            <p class="rent__availability">Доступно</p>
+                        </div>
+                        <p class="rent__cardText">Надежная бетономешалка для приготовления раствора</p>
+                        <div class="rent__cardPrice">
+                            <p class="rent__price">1200₽/день</p>
+                            <a href="#" class="rent__cardLink">Забронировать</a>
+                        </div>
+                    </div>
+                    <div class="rent__card">
+                        <img class="rent__cardImg" src="image/beton.png" alt="Картинка услуги">
+                        <div class="rent__cardName">
+                            <p class="rent__name">Бетономешалка 160Л</p>
+                            <p class="rent__availability">Доступно</p>
+                        </div>
+                        <p class="rent__cardText">Надежная бетономешалка для приготовления раствора</p>
+                        <div class="rent__cardPrice">
+                            <p class="rent__price">1200₽/день</p>
+                            <a href="#" class="rent__cardLink">Забронировать</a>
+                        </div>
+                    </div>
+                    <div class="rent__card">
+                        <img class="rent__cardImg" src="image/beton.png" alt="Картинка услуги">
+                        <div class="rent__cardName">
+                            <p class="rent__name">Бетономешалка 160Л</p>
+                            <p class="rent__availability">Доступно</p>
+                        </div>
+                        <p class="rent__cardText">Надежная бетономешалка для приготовления раствора</p>
+                        <div class="rent__cardPrice">
+                            <p class="rent__price">1200₽/день</p>
+                            <a href="#" class="rent__cardLink">Забронировать</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="rent__cardLinks">
+                    <p class="rent__cardLinkText">Смотреть весь каталог инструментов</p>
+                    <img class="rent__arrow" src="image/arrow.svg" alt="стрелка">
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="contact">
+        <div class="contact__container container">
+            <div class="contact__content">
+                <div class="contact__main">
+                    <h1 class="contact__title">Свяжитесь с нами</h1>
+                    <p class="contact__subtitle">У вас есть вопросы о наших услугах? Заполните форму, и наши специалисты свяжутся с вами в ближайшее время.</p>
+                    <menu class="contact__links">
+                        <li class="contact__linkBlock">
+                            <a class="contact__link" href="">
+                                <div class="contact__linkIcon">
+                                    <img class="contact__linkImg" src="image/local.png" alt="">
+                                </div>
+                                <div class="contact__linkInfo">
+                                    <p class="contact__linkTitle">Адрес</p>
+                                    <p class="contact__linkText">Г. Волгоград</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="contact__linkBlock">
+                            <a class="contact__link" href="">
+                                <div class="contact__linkIcon">
+                                    <img class="contact__linkImg" src="image/call.png" alt="">
+                                </div>
+                                <div class="contact__linkInfo">
+                                    <p class="contact__linkTitle">Телефон</p>
+                                    <p class="contact__linkText">+7 (123) 123-12-12</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="contact__linkBlock">
+                            <a class="contact__link" href="">
+                                <div class="contact__linkIcon">
+                                    <img class="contact__linkImg" src="image/mail.png" alt="">
+                                </div>
+                                <div class="contact__linkInfo">
+                                    <p class="contact__linkTitle">Адрес</p>
+                                    <p class="contact__linkText">Г. Волгоград</p>
+                                </div>
+                            </a>
+                        </li>
+                    </menu>
+                </div>
+                <form class="contact__form">
+                    <div class="contact__formGroupInputs">
+                        <div class="contact__inputGroup">
+                            <label for="" class="contact__label">Имя</label>
+                            <input class="contact__input" type="text" placeholder="Имя">
+                        </div>
+                        <div class="contact__inputGroup">
+                            <label for="" class="contact__label">Телефон</label>
+                            <input class="contact__input" type="text" placeholder="+7 (__) ___-__-__">
+                        </div>
+                    </div>
+                    <div class="contact__formGroup">
+                        <label for="" class="contact__label">Почта</label>
+                        <input class="contact__input" type="email" placeholder="Почта">
+                    </div>
+                    <div class="contact__formGroup">
+                        <label class="contact__nameInput">Услуга</label>
+                        <select class="contact__selectOptions">
+                            <option class="contact_option" value="">Другое</option>
+                            <option class="contact_option" value="brick">Кирпич</option>
+                            <option class="contact_option" value="panel">Панель</option>
+                            <option class="contact_option" value="block">Блок</option>
+                        </select>
+                    </div>
+                    <div class="contact__formGroup">
+                        <label for="" class="contact__label">Сообщение</label>
+                        <textarea class="contact__textarea" placeholder="Опишите ваш проект или задайте вопрос" ></textarea>
+                    </div>
+                    <button  class="contact__button" type="submit">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </section>
+@endsection
