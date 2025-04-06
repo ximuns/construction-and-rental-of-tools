@@ -1,0 +1,57 @@
+<form  autocomplete="off" wire:submit.prevent="submit" class="contact__form">
+    <div class="contact__formGroupInputs">
+        <div class="contact__inputGroup">
+            <label for="name" class="contact__label">Имя</label>
+            <input  id="name" wire:model="name" name="name" class="contact__input" type="text" placeholder="Имя">
+            @error('name') <span class="contact__error">{{ $message }}</span> @enderror
+        </div>
+        <div class="contact__inputGroup"
+             x-data="{ phone: '' }"
+             x-init="
+             $nextTick(() => {
+                 IMask($refs.phoneInput, {
+                     mask: '+{7} (000) 000-00-00',
+                     lazy: false,
+                     commit: function(value, masked) {
+                         $wire.set('phone', masked.value);
+                     }
+                 });
+             })
+        ">
+            <label for="phone" class="contact__label">Телефон</label>
+            <input
+                x-ref="phoneInput"
+                wire:model="phone"
+                id="phone"
+                name="phone"
+                class="contact__input"
+                type="text"
+                placeholder="+7 (___) ___-__-__"
+                data-mask="+7 (____) ___-__-__"
+            >
+            @error('phone') <span class="contact__error">{{ $message }}</span> @enderror
+        </div>
+    </div>
+    <div class="contact__formGroup">
+        <label for="email" class="contact__label">Почта</label>
+        <input id="email" wire:model="email" name="email" class="contact__input" type="email" placeholder="Почта">
+        @error('email') <span class="contact__error">{{ $message }}</span> @enderror
+    </div>
+    <div class="contact__formGroup">
+        <label for="services" class="contact__nameInput">Услуга</label>
+        <select wire:model="services" name="services" id="services" class="contact__selectOptions">
+            <option class="contact_option" value="">Другое</option>
+            <option class="contact_option" value="brick">Кирпич</option>
+            <option class="contact_option" value="panel">Панель</option>
+            <option class="contact_option" value="block">Блок</option>
+        </select>
+        @error('services') <span class="contact__error">{{ $message }}</span> @enderror
+    </div>
+    <div class="contact__formGroup">
+        <label for="message" class="contact__label">Сообщение</label>
+        <textarea id="message" wire:model="message" name="message" class="contact__textarea" placeholder="Опишите ваш проект или задайте вопрос" ></textarea>
+        @error('message') <span class="contact__error">{{ $message }}</span> @enderror
+    </div>
+    <button  class="contact__button" type="submit">Отправить</button>
+</form>
+

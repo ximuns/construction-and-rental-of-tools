@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <title>СТРОЙЛАЙН</title>
+    @livewireStyles
+    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+    <script src="https://unpkg.com/imask"></script>
 </head>
 <body>
     @include('partials.header')
@@ -12,6 +14,7 @@
         @yield('content')
     </main>
     @include('partials.footer')
+    @livewireScripts
     <script src="{{ asset('assets/js/script.js') }}"></script>
 </body>
 </html>

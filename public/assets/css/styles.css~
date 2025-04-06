@@ -1029,7 +1029,7 @@ input:checked + .calculator__slider:before {
 
 .notification.show {
     transform: translateY(0);
-    opacity: 99999;
+    opacity: 1;
 }
 
 .notification.success {

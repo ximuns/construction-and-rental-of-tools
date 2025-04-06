@@ -187,36 +187,7 @@
                         </li>
                     </menu>
                 </div>
-                <form class="contact__form">
-                    <div class="contact__formGroupInputs">
-                        <div class="contact__inputGroup">
-                            <label for="" class="contact__label">Имя</label>
-                            <input class="contact__input" type="text" placeholder="Имя">
-                        </div>
-                        <div class="contact__inputGroup">
-                            <label for="" class="contact__label">Телефон</label>
-                            <input class="contact__input" type="text" placeholder="+7 (__) ___-__-__">
-                        </div>
-                    </div>
-                    <div class="contact__formGroup">
-                        <label for="" class="contact__label">Почта</label>
-                        <input class="contact__input" type="email" placeholder="Почта">
-                    </div>
-                    <div class="contact__formGroup">
-                        <label class="contact__nameInput">Услуга</label>
-                        <select class="contact__selectOptions">
-                            <option class="contact_option" value="">Другое</option>
-                            <option class="contact_option" value="brick">Кирпич</option>
-                            <option class="contact_option" value="panel">Панель</option>
-                            <option class="contact_option" value="block">Блок</option>
-                        </select>
-                    </div>
-                    <div class="contact__formGroup">
-                        <label for="" class="contact__label">Сообщение</label>
-                        <textarea class="contact__textarea" placeholder="Опишите ваш проект или задайте вопрос" ></textarea>
-                    </div>
-                    <button  class="contact__button" type="submit">Отправить</button>
-                </form>
+                <livewire:feedback />
             </div>
         </div>
     </section>
