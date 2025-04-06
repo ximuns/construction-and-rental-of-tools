@@ -1,0 +1,34 @@
+@props(['data'])
+<li class="contact__linkBlock">
+    <a class="contact__link" href="">
+        <div class="contact__linkIcon">
+            <img class="contact__linkImg" src="{{ asset('assets/image/local.png')  }}" alt="">
+        </div>
+        <div class="contact__linkInfo">
+            <p class="contact__linkTitle">Адрес</p>
+            <p class="contact__linkText">{{ $data->address  }}</p>
+        </div>
+    </a>
+</li>
+<li class="contact__linkBlock">
+    <a class="contact__link" href="">
+        <div class="contact__linkIcon">
+            <img class="contact__linkImg" src="{{ asset('assets/image/call.png')  }}" alt="">
+        </div>
+        <div class="contact__linkInfo">
+            <p class="contact__linkTitle">Телефон</p>
+            <p class="contact__linkText">{{ $data->phone  }}</p>
+        </div>
+    </a>
+</li>
+<li class="contact__linkBlock">
+    <a class="contact__link" href="">
+        <div class="contact__linkIcon">
+            <img class="contact__linkImg" src="{{ asset('assets/image/mail.png')  }}" alt="">
+        </div>
+        <div class="contact__linkInfo">
+            <p class="contact__linkTitle">Почта</p>
+            <p class="contact__linkText">{{ $data->email  }}</p>
+        </div>
+    </a>
+</li>

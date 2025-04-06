@@ -140,7 +140,7 @@
                 </div>
                 <a href="#" class="rent__cardLinks">
                     <p class="rent__cardLinkText">Смотреть весь каталог инструментов</p>
-                    <img class="rent__arrow" src="image/arrow.svg" alt="стрелка">
+                    <img class="rent__arrow" src="{{ asset('assets/image/arrow.svg') }}" alt="стрелка">
                 </a>
             </div>
         </div>
@@ -152,39 +152,7 @@
                     <h1 class="contact__title">Свяжитесь с нами</h1>
                     <p class="contact__subtitle">У вас есть вопросы о наших услугах? Заполните форму, и наши специалисты свяжутся с вами в ближайшее время.</p>
                     <menu class="contact__links">
-                        <li class="contact__linkBlock">
-                            <a class="contact__link" href="">
-                                <div class="contact__linkIcon">
-                                    <img class="contact__linkImg" src="image/local.png" alt="">
-                                </div>
-                                <div class="contact__linkInfo">
-                                    <p class="contact__linkTitle">Адрес</p>
-                                    <p class="contact__linkText">Г. Волгоград</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="contact__linkBlock">
-                            <a class="contact__link" href="">
-                                <div class="contact__linkIcon">
-                                    <img class="contact__linkImg" src="image/call.png" alt="">
-                                </div>
-                                <div class="contact__linkInfo">
-                                    <p class="contact__linkTitle">Телефон</p>
-                                    <p class="contact__linkText">+7 (123) 123-12-12</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="contact__linkBlock">
-                            <a class="contact__link" href="">
-                                <div class="contact__linkIcon">
-                                    <img class="contact__linkImg" src="image/mail.png" alt="">
-                                </div>
-                                <div class="contact__linkInfo">
-                                    <p class="contact__linkTitle">Адрес</p>
-                                    <p class="contact__linkText">Г. Волгоград</p>
-                                </div>
-                            </a>
-                        </li>
+                      <livewire:contact />
                     </menu>
                 </div>
                 <livewire:feedback />
