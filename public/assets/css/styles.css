@@ -59,6 +59,13 @@ body {
 
 }
 
+.root__link {
+    transition: 300ms transform;
+}
+
+.root__link:hover {
+    transform: scale(1.05);
+}
 
 .root__list {
     display: flex;
@@ -896,6 +903,7 @@ input:checked + .calculator__slider:before {
     position: relative;
     top: 75vh;
     z-index: 20;
+    background-color: #0A2463;
 }
 .footer__top {
     display: flex;

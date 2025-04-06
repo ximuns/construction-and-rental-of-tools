@@ -6,6 +6,7 @@
     <title>СТРОЙЛАЙН</title>
     @livewireStyles
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/portfolio.css') }}">
     <script src="https://unpkg.com/imask"></script>
 </head>
 <body>

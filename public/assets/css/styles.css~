@@ -59,6 +59,13 @@ body {
 
 }
 
+.root__link {
+    transition: 300ms transform;
+}
+
+.root__link:hover {
+    transform: scale(1.05);
+}
 
 .root__list {
     display: flex;
@@ -878,12 +885,10 @@ input:checked + .calculator__slider:before {
 .contact__button {
     width: 100%;
     padding: 15px 20px;
-    border-radius: 5px;
     background-color: #0A2463;
     color: #FFFFFF;
     font-weight: 600;
     cursor: pointer;
-
     border-radius: 100px;
     transition: transform 300ms;
 }
@@ -898,6 +903,7 @@ input:checked + .calculator__slider:before {
     position: relative;
     top: 75vh;
     z-index: 20;
+    background-color: ;
 }
 .footer__top {
     display: flex;
