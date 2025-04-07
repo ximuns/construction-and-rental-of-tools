@@ -679,7 +679,7 @@ input:checked + .calculator__slider:before {
     font-size: 14px;
     font-weight: 600;
     color: #257142;
-    padding: 6px 9px;
+    padding: 5px 8px;
     background-color: #DCFCE7;
     border: 1px solid #B1D4BD;
     border-radius: 100px;

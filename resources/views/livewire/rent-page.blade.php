@@ -29,11 +29,18 @@
                 <p class="rent__cardText">{{ $rent->description }}</p>
                 <div class="rent__cardPrice">
                     <p class="rent__price">{{ $rent->price }}₽/день</p>
-                    <a href="#" class="rent__cardLink">Забронировать</a>
+                    @if($rent->is_access)
+                        <a href="#" class="rent__cardLink">Забронировать</a>
+                    @endif
                 </div>
             </div>
         @empty
-            <p class="rent__no-results">Инструменты не найдены</p>
+            <div>
+                <span> </span>
+            </div>
+            <div>
+                <p class="rent__no-results">Инструменты не найдены</p>
+            </div>
         @endforelse
     </div>
 </div>

@@ -637,7 +637,7 @@ input:checked + .calculator__slider:before {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
-.rent__cards > * {
+.rent__cards > *:not(.rent__card) {
     display: contents;
 }
 

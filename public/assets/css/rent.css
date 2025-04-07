@@ -85,3 +85,8 @@
     border: 1px solid #F5B8B8;
     color: #9B1E1E;
 }
+
+
+.rent__no-results {
+    grid-column: 2;
+}

@@ -10,6 +10,8 @@
     <p class="rent__cardText">{{ $data->description }}</p>
     <div class="rent__cardPrice">
         <p class="rent__price">{{ $data->price }}₽/день</p>
-        <a href="#" class="rent__cardLink">Забронировать</a>
+        @if($data->is_access)
+            <a href="#" class="rent__cardLink">Забронировать</a>
+        @endif
     </div>
 </div>

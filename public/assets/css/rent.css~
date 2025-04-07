@@ -3,6 +3,10 @@
     background-color: #F9FAFB;
 }
 
+.rent__page {
+    top: 0;
+}
+
 .rent__content {
     display: flex;
     flex-direction: column;
@@ -82,6 +86,12 @@
     color: #9B1E1E;
 }
 
-.rent__page {
-    top: 0;
+
+.rent__no-results {
+    position: absolute;
+    left: calc(33.33% + 10px); /* 1 колонка + половина gap */
+    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(33.33% - 20px); /* Ширина колонки с учетом gap */
 }
