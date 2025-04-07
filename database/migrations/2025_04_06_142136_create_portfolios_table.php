@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('portfolios', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\CategoryPortfolio::class)->constrained('category_id')->onDelete()->cascade();
+            $table->foreignId('category_id')->onDelete()->cascade();
             $table->string('image');
             $table->string('title');
             $table->string('description');

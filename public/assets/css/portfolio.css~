@@ -3,7 +3,6 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
     background-color: #F9FAFB;
 }
 
@@ -43,13 +42,20 @@
 .portfolio__tab {
     margin: 0;
     padding: 6px 18px;
-    background-color: #FFFFFF;
     font-size: 18px;
     border-radius: 5px;
     cursor: pointer;
     font-weight: 600;
     color: #78716C;
+    transition: all 300ms;
 }
+
+.portfolio__tab.active {
+    color: #0A2463;
+    background-color: #FFFFFF;
+    border-bottom: 2px solid #000;
+}
+
 
 .portfolio__cards {
     margin-top: 55px;
@@ -72,15 +78,19 @@
     transform: scale(1.05);
 }
 
-.portfolio__cardImage {
+.portfolio__cardImg {
+    max-width: 384px;
     width: 100%;
+    object-fit: cover;
+    justify-items: center;
+    max-height: 160px;
     border-radius: 10px 10px 0 0;
 }
 
 .portfolio__cardTitle {
     font-size: 20px;
     color: #0A2463;
-    margin: 20px 0 20px 20px;
+    margin: 20px ;
     font-weight: 500;
 
     text-align: start;

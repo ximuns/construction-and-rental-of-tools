@@ -903,8 +903,15 @@ input:checked + .calculator__slider:before {
     position: relative;
     top: 75vh;
     z-index: 20;
-    background-color: ;
+    background-color: #0A2463;
 }
+
+.footer__notMain {
+    position: static;
+    z-index: 99999;
+    background-color: #0A2463;
+}
+
 .footer__top {
     display: flex;
     justify-content: space-between;
@@ -927,6 +934,14 @@ input:checked + .calculator__slider:before {
     a {
         color: #fff;
     }
+}
+
+.footer__link {
+    transition: transform 300ms;
+    
+}
+.footer__link:hover {
+    transform: scale(1.05);
 }
 
 .footer__content {
