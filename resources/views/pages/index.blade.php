@@ -44,8 +44,7 @@
             <div class="calculator__content">
                 <div class="calculator__main">
                     <h1 class="calculator__title">Расчитайте стоимость услуг</h1>
-                    <p class="calculator__subtitle">Получите предварительную оценку стоимости вашего проекта с помощью нашего онлайн-калькулятора
-                    </p>
+                    <p class="calculator__subtitle">Получите предварительную оценку стоимости вашего проекта с помощью нашего онлайн-калькулятора</p>
                 </div>
                 <div class="calculator__form">
                     <div class="calculator__formGroup">

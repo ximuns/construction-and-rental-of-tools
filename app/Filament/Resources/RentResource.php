@@ -25,6 +25,9 @@ class RentResource extends Resource
             ->schema([
                 Forms\Components\Section::make('Аренда')
                     ->schema([
+                        Forms\Components\Select::make('category_id')
+                            ->label('Категория')
+                            ->relationship('category', 'title'),
                         Forms\Components\TextInput::make('title')
                             ->maxLength(255)
                             ->label('Название инструмента')
@@ -35,6 +38,7 @@ class RentResource extends Resource
                             ->required(),
                         Forms\Components\TextInput::make('price')
                             ->maxLength(255)
+                            ->numeric()
                             ->label('Цена аренды в день'),
                         Forms\Components\FileUpload::make('image')
                             ->image()

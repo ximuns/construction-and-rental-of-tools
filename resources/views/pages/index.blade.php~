@@ -44,8 +44,7 @@
             <div class="calculator__content">
                 <div class="calculator__main">
                     <h1 class="calculator__title">Расчитайте стоимость услуг</h1>
-                    <p class="calculator__subtitle">Получите предварительную оценку стоимости вашего проекта с помощью нашего онлайн-калькулятора
-                    </p>
+                    <p class="calculator__subtitle">Получите предварительную оценку стоимости вашего проекта с помощью нашего онлайн-калькулятора</p>
                 </div>
                 <div class="calculator__form">
                     <div class="calculator__formGroup">
@@ -135,12 +134,10 @@
                     <h1 class="rent__title">Аренда инструментов</h1>
                     <p class="rent__subtitle">Широкий выбор профессиональных инструментов для ваших строительных проектов</p>
                 </div>
-                <div class="rent__cards">
                     <livewire:rent />
-                </div>
                 <a href="#" class="rent__cardLinks">
                     <p class="rent__cardLinkText">Смотреть весь каталог инструментов</p>
-                    <img class="rent__arrow" src="image/arrow.svg" alt="стрелка">
+                    <img class="rent__arrow" src="{{ asset('assets/image/arrow.svg') }}" alt="стрелка">
                 </a>
             </div>
         </div>

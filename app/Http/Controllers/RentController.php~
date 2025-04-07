@@ -8,7 +8,7 @@ class RentController extends Controller
 {
     public function index()
     {
-        return view('pages.rent', [
+        return view('pages.index', [
             'title' => 'Аренда инструментов',
             'description' => 'Meta-описание главной страницы',
             'keywords' => 'ИМ, Электронные товары, скидки',

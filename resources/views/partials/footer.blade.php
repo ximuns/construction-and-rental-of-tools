@@ -1,4 +1,4 @@
-<footer class="footer @if(request()->is('portfolio')) footer__notMain @endif">
+<footer class="footer @if(request()->is('portfolio') || request()->is('rent')) footer__notMain @endif">
     <div class="footer__container container">
         <div class="footer__content">
             <div class="footer__top">

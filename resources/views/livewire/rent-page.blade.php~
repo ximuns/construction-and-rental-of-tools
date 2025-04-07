@@ -1,0 +1,39 @@
+<div class="rent__content">
+    <div class="rent__main">
+        <h1 class="rent__title">Аренда инструментов</h1>
+        <p class="rent__subtitle">Широкий выбор профессионального инструмента для строительства и ремонта. Доступные цены и гибкие условия аренды.</p>
+    </div>
+    <input
+        wire:model.debounce.300ms="search"
+        class="rent__search"
+        placeholder="Поиск инструментов..."
+        type="text"
+    >
+    <div class="rent__tabs">
+        <p class="rent__tab {{ is_null($activeCategory) ? 'active' : '' }}" wire:click="filterByCategory()">Всё</p>
+        @foreach($categories as $category)
+            <p class="rent__tab {{ $activeCategory == $category->id ? 'active' : '' }}"
+               wire:click="filterByCategory({{ $category->id }})">{{ $category->title }}</p>
+        @endforeach
+    </div>
+    <div class="rent__cards">
+        @forelse($rents as $rent)
+            <div class="rent__card">
+                <img class="rent__cardImg" src="{{ url('storage', $rent->image) }}" alt="{{ $rent->title }}">
+                <div class="rent__cardName">
+                    <p class="rent__name">{{ $rent->title }}</p>
+                    <p class="rent__availability {{ $rent->is_access ? '' : 'active' }}">
+                        {{ $rent->is_access ? 'Доступно' : 'Занято' }}
+                    </p>
+                </div>
+                <p class="rent__cardText">{{ $rent->description }}</p>
+                <div class="rent__cardPrice">
+                    <p class="rent__price">{{ $rent->price }}₽/день</p>
+                    <a href="#" class="rent__cardLink">Забронировать</a>
+                </div>
+            </div>
+        @empty
+            <p class="rent__no-results">Инструменты не найдены</p>
+        @endforelse
+    </div>
+</div>

@@ -71,7 +71,6 @@ body {
     display: flex;
     list-style: none;
     padding: 0;
-    margin: 0;
     gap: 30px;
     margin: 0 40px 0 0;
 
@@ -120,7 +119,6 @@ body {
 .main__title {
     font-size: 48px;
     color: #fff;
-    margin-bottom: 40px;
     font-weight: 600;
     margin: 20px 0;
 }
@@ -639,6 +637,13 @@ input:checked + .calculator__slider:before {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
+.rent__cards > * {
+    display: contents;
+}
+
+.rent__cards .rent__card {
+    grid-column: auto;
+}
 
 .rent__card {
     background-color: #FFFFFF;
@@ -686,6 +691,7 @@ input:checked + .calculator__slider:before {
     font-weight: 500;
     color: #848C95;
     margin: 0;
+    text-align: start;
 }
 
 .rent__cardPrice {
@@ -938,8 +944,8 @@ input:checked + .calculator__slider:before {
 
 .footer__link {
     transition: transform 300ms;
-    
 }
+
 .footer__link:hover {
     transform: scale(1.05);
 }

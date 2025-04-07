@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rents', function (Blueprint $table) {
+        Schema::create('category_rents', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
             $table->string('title');
-            $table->foreignId('category_id')->onDelete()->cascade();
-            $table->string('description');
-            $table->string('price');
-            $table->boolean('is_access')->default(true);
-            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }
@@ -29,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rents');
+        Schema::dropIfExists('category_rents');
     }
 };

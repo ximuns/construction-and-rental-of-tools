@@ -6,7 +6,7 @@
         <p class="services__name">{{ $data->title }}</p>
     </div>
     <p class="services__cardText">{{ $data->description }}</p>
-    <a href="#" class="services__cardLink">
+    <a href="/portfolio" class="services__cardLink">
         <p class="services__cardLinkText">Примеры работ</p>
         <img class="services__arrow" src="{{ asset('assets/image/arrow.svg') }}" alt="стрелка">
     </a>
