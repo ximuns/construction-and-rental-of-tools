@@ -8,7 +8,7 @@ class Advantage extends Component
 {
     public function index()
     {
-        return \App\Models\Advantage::where('is_active', true)->get();
+        return \App\Models\Advantage::all();
     }
     public function render()
     {

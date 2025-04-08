@@ -769,8 +769,6 @@ input:checked + .calculator__slider:before {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    margin-top: auto;
 }
 
 .rent__price {

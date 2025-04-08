@@ -33,7 +33,7 @@ class AdvantageResource extends Resource
                             ->maxLength(255)
                             ->label('Название преимущества')
                             ->required(),
-                        Forms\Components\FileUpload::make('image')
+                        Forms\Components\FileUpload::make('icon')
                             ->image()
                             ->acceptedFileTypes(['image/png', 'image/svg+xml'])
                             ->label('Иконка преимущества')
