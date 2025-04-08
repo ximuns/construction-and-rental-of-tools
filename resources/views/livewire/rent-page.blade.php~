@@ -30,17 +30,18 @@
                 <div class="rent__cardPrice">
                     <p class="rent__price">{{ $rent->price }}₽/день</p>
                     @if($rent->is_access)
-                        <a href="#" class="rent__cardLink">Забронировать</a>
+                        <button wire:click="openModal({{ $rent->id }})" class="rent__cardLink">Забронировать</button>
                     @endif
                 </div>
             </div>
         @empty
             <div>
-                <span></span>
+                <span> </span>
             </div>
             <div>
                 <p class="rent__no-results">Инструменты не найдены</p>
             </div>
         @endforelse
     </div>
+    <
 </div>

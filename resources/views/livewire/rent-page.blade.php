@@ -30,7 +30,7 @@
                 <div class="rent__cardPrice">
                     <p class="rent__price">{{ $rent->price }}₽/день</p>
                     @if($rent->is_access)
-                        <a href="#" class="rent__cardLink">Забронировать</a>
+                        <button wire:click="openModal({{ $rent->id }})" class="rent__cardLink">Забронировать</button>
                     @endif
                 </div>
             </div>
@@ -43,4 +43,5 @@
             </div>
         @endforelse
     </div>
+    @livewire('rent-modal')
 </div>

@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Livewire;
+
+use App\Models\RentUser;
+use Livewire\Component;
+
+class RentModal extends Component
+{
+    public $name;
+    public $phone;
+    public $email;
+    public $message;
+    public $showModal = false;
+    public $selectedTool;
+    public $showNotification = false;
+
+    protected $listeners = ['showModal' => 'openModal'];
+
+    public $tool;
+
+    public function openModal($toolId)
+    {
+        $this->selectedTool = \App\Models\Rent::find($toolId);
+        $this->showModal = true;
+    }
+
+    public function closeModal()
+    {
+        $this->showModal = false;
+        $this->selectedTool = null;
+    }
+
+    public function setTool($toolId)
+    {
+        $this->tool = \App\Models\Rent::find($toolId);
+    }
+
+    public function submitRent()
+    {
+        try {
+        RentUser::create([
+            'rent_id' => $this->selectedTool->id,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'message' => $this->message,
+        ]);
+
+        $this->showNotification = true;
+        $this->dispatch('notification-show', type: 'success', message: 'Ваша заявка отправлена! Ожидайте ответа.');
+        $this->resetForm();
+        $this->closeModal();
+        } catch (\Exception $e) {
+            $this->dispatch('notification-show', type: 'error', message: 'Произошла ошибка при отправке заявки. Попробуйте позже.');
+        }
+    }
+
+    private function resetForm()
+    {
+        $this->name = '';
+        $this->phone = '';
+        $this->email = '';
+        $this->message = '';
+    }
+
+    public function render()
+    {
+        return view('livewire.rent-modal', [
+            'toolTitle' => $this->selectedTool->title ?? null,
+            'toolId' => $this->selectedTool->id ?? null
+        ]);
+    }
+}

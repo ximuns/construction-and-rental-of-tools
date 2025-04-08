@@ -22,7 +22,8 @@ class RentPage extends Component
 
     public function openModal($toolId)
     {
-        $this->dispatch('showModal', toolId: $toolId);
+        $this->selectedToolId = $toolId;
+        $this->emit('showModal', $toolId);
     }
 
     public function closeModal()

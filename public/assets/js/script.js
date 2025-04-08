@@ -2,9 +2,11 @@
 const rangeInput = document.getElementById('areaRange');
 const rangeValue = document.getElementById('rangeValue');
 
-rangeInput.addEventListener('input', function() {
-    rangeValue.textContent = this.value;
-});
+if (rangeInput) {
+    rangeInput.addEventListener('input', function() {
+        rangeValue.textContent = this.value;
+    });
+}
 
 //RadioButton
 const radioInputs = document.querySelectorAll('.calculator__radioButton');

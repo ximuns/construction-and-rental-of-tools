@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/portfolio.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/rent.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/modal.css') }}">
     <script src="https://unpkg.com/imask"></script>
 </head>
 <body>

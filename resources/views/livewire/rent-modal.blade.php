@@ -1,0 +1,84 @@
+<div>
+@if($showModal)
+<div class="modal__black"  wire:key="modal-{{ $selectedTool->id }}"
+     x-data="{
+                 open: true,
+                 scrollPosition: 0,
+                 lockScroll() {
+                     this.scrollPosition = window.pageYOffset;
+                     document.documentElement.style.overflow = 'hidden';
+                     document.body.style.position = 'fixed';
+                     document.body.style.width = '100%';
+                     document.body.style.top = `-${this.scrollPosition}px`;
+                 },
+                 unlockScroll() {
+                     document.documentElement.style.overflow = '';
+                     document.body.style.position = '';
+                     document.body.style.width = '';
+                     document.body.style.top = '';
+                     window.scrollTo(0, this.scrollPosition);
+                 }
+             }"
+     x-init="lockScroll()"
+     x-show="open"
+     @click="
+                 if ($event.target.classList.contains('modal__black')) {
+                     open = false;
+                     $wire.closeModal();
+                     unlockScroll();
+                 }
+             ">
+    <div class="modal__content"  x-data="{ open: true }" x-show="open" @click.away="open = false; $wire.closeModal()">
+        <p class="modal__title">Аренда инструмента</p>
+        <p class="modal__subtitle">{{ $selectedTool->title }} - {{ $selectedTool->price }} ₽/день</p>
+        <form autocomplete="off" class="modal__form" wire:submit.prevent="submitRent">
+            <div class="modal__textField">
+                <label class="modal__label">Ваше имя</label>
+                <input wire:model="name" required class="modal__input" placeholder="Ваше имя">
+            </div>
+            <div class="modal__textField"
+                 x-data="{ phone: '' }"
+                 x-init="
+                 $nextTick(() => {
+                     IMask($refs.phoneInput, {
+                         mask: '+{7} (000) 000-00-00',
+                         lazy: false,
+                         commit: function(value, masked) {
+                             $wire.set('phone', masked.value);
+                         }
+                     });
+                 })
+                ">
+                <label for="phone" class="modal__label">Телефон</label>
+                <input
+                    x-ref="phoneInput"
+                    wire:model="phone"
+                    id="phone"
+                    name="phone"
+                    class="modal__input"
+                    type="text"
+                    placeholder="+7 (___) ___-__-__"
+                    data-mask="+7 (____) ___-__-__"
+                >
+                @error('phone') <span class="modal__error">{{ $message }}</span> @enderror
+            </div>
+            <div class="modal__textField">
+                <label class="modal__label">Почта</label>
+                <input wire:model="email" type="email" class="modal__input" placeholder="Ваша почта">
+            </div>
+            <div class="modal__textField">
+                <label class="modal__label" >Сообщение</label>
+                <textarea wire:model="message" class="modal__textarea" placeholder="Дополнительные вопросы"></textarea>
+            </div>
+            <div class="modal__buttons">
+                <button @click="
+                 open = false;
+                 $wire.closeModal();
+                 unlockScroll();" class="modal__button">Отмена</button>
+                <button type="submit" @click="open = false; unlockScroll();" class="modal__button">Забронировать</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endif
+</div>

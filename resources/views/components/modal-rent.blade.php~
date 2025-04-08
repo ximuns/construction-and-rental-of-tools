@@ -1,0 +1,28 @@
+<div class="modal__black">
+    <div class="modal__content">
+        <p class="modal__title">Аренда инструмента</p>
+        <p class="modal__subtitle">Циркулярная пила Makita HS7601 - 900 ₽/день</p>
+        <form class=modal__form">
+            <div class="modal__textField">
+                <label class="modal__label">Ваше имя</label>
+                <input class="modal__input" placeholder="Ваше имя">
+            </div>
+            <div class="modal__textField">
+                <label class="modal__label">Телефон</label>
+                <input class="modal__input" placeholder="+7 (___) ___ __-__">
+            </div>
+            <div class="modal__textField">
+                <label class="modal__label">Почта</label>
+                <input class="modal__input" placeholder="Ваше имя">
+            </div>
+            <div class="modal__textField">
+                <label class="modal__label" >Почта</label>
+                <textarea class="modal__textarea" placeholder="Дополнительные вопросы"></textarea>
+            </div>
+            <div class="modal__buttons">
+                <button class="modal__button">Отмена</button>
+                <button class="modal__button">Забронировать</button>
+            </div>
+        </form>
+    </div>
+</div>
