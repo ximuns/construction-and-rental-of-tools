@@ -1,34 +1,29 @@
 <div>
 @if($showModal)
-<div class="modal__black"  wire:key="modal-{{ $selectedTool->id }}"
-     x-data="{
-                 open: true,
-                 scrollPosition: 0,
-                 lockScroll() {
-                     this.scrollPosition = window.pageYOffset;
+        <div class="modal__black"
+             x-data="{ isOpen: $wire.entangle('showModal') }"
+             x-init="
+             $watch('isOpen', value => {
+                 if (value) {
+                     scrollPosition = window.pageYOffset;
                      document.documentElement.style.overflow = 'hidden';
                      document.body.style.position = 'fixed';
                      document.body.style.width = '100%';
-                     document.body.style.top = `-${this.scrollPosition}px`;
-                 },
-                 unlockScroll() {
+                     document.body.style.top = `-${scrollPosition}px`;
+                 } else {
                      document.documentElement.style.overflow = '';
                      document.body.style.position = '';
                      document.body.style.width = '';
                      document.body.style.top = '';
-                     window.scrollTo(0, this.scrollPosition);
+                     window.scrollTo(0, scrollPosition);
                  }
-             }"
-     x-init="lockScroll()"
-     x-show="open"
-     @click="
-                 if ($event.target.classList.contains('modal__black')) {
-                     open = false;
-                     $wire.closeModal();
-                     unlockScroll();
-                 }
-             ">
-    <div class="modal__content"  x-data="{ open: true }" x-show="open" @click.away="open = false; $wire.closeModal()">
+             })
+         "
+             x-show="isOpen"
+             @click.away="isOpen = false"
+             @keydown.escape.window="isOpen = false"
+             wire:key="modal-{{ $selectedTool->id ?? 'default' }}">
+    <div class="modal__content"  @click.stop>
         <p class="modal__title">Аренда инструмента</p>
         <p class="modal__subtitle">{{ $selectedTool->title }} - {{ $selectedTool->price }} ₽/день</p>
         <form autocomplete="off" class="modal__form" wire:submit.prevent="submitRent">
@@ -75,7 +70,7 @@
                  open = false;
                  $wire.closeModal();
                  unlockScroll();" class="modal__button">Отмена</button>
-                <button type="submit" @click="open = false; $wire.closeModal(); unlockScroll();" class="modal__button">Забронировать</button>
+                <button type="submit" @click="open = false; unlockScroll();" class="modal__button">Забронировать</button>
             </div>
         </form>
     </div>

@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+html {
+    scroll-behavior: smooth;
+}
+
 .container {
     width: 1410px;
     margin: 0 auto;
@@ -970,7 +974,12 @@ input:checked + .calculator__slider:before {
     display: flex;
     list-style: none;
     gap: 30px;
-    padding: 0;
+    padding: 20px 0 20px 0;
+}
+
+.footer__icon {
+    width: 30px;
+    height: 30px;
 }
 
 /* animation main */

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\RentUser;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class RentModal extends Component
@@ -23,6 +24,7 @@ class RentModal extends Component
     {
         $this->selectedTool = \App\Models\Rent::find($toolId);
         $this->showModal = true;
+        $this->dispatch('modal-opened');
     }
 
     public function closeModal()

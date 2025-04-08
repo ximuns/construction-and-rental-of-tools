@@ -4,7 +4,7 @@
 @section('description', $description)
 
 @section('content')
-    <section class="main">
+    <section class="main" id="hero">
         <span class="main__cube_full"></span>
         <span class="main__cube_half"></span>
         <span class="main__bg_rounded"></span>
@@ -23,7 +23,7 @@
             </div>
         </div>
     </section>
-    <section class="services">
+    <section class="services" id="service">
         <div class="services__container container">
             <div class="services__content">
                 <div class="services__main">
@@ -39,7 +39,7 @@
             </div>
         </div>
     </section>
-    <section class="calculator">
+    <section class="calculator" id="calculator">
         <div class="calculator__container container">
             <div class="calculator__content">
                 <div class="calculator__main">
@@ -127,7 +127,7 @@
             </div>
         </div>
     </section>
-    <section class="rent">
+    <section class="rent" id="rent">
         <div class="rent__container container">
             <div class="rent__content">
                 <div class="rent__main">
@@ -137,14 +137,14 @@
                 <div class="rent__cards">
                     <livewire:rent />
                 </div>
-                <a href="#" class="rent__cardLinks">
+                <a href="/rent" class="rent__cardLinks">
                     <p class="rent__cardLinkText">Смотреть весь каталог инструментов</p>
                     <img class="rent__arrow" src="{{ asset('assets/image/arrow.svg') }}" alt="стрелка">
                 </a>
             </div>
         </div>
     </section>
-    <section class="contact">
+    <section class="contact" id="contact">
         <div class="contact__container container">
             <div class="contact__content">
                 <div class="contact__main">

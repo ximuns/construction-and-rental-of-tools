@@ -11,7 +11,6 @@ class RentPage extends Component
     public $categories;
     public $rents;
     public $search = '';
-    public $selectedToolId = null;
 
 
     public function mount()
@@ -22,8 +21,7 @@ class RentPage extends Component
 
     public function openModal($toolId)
     {
-        $this->selectedToolId = $toolId;
-        $this->emit('showModal', $toolId);
+        $this->dispatch('showModal', toolId: $toolId);
     }
 
     public function closeModal()

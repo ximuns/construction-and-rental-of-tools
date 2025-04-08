@@ -6,35 +6,40 @@
                     <a class="footer__logoLink" href="/">СТРОЙЛАЙН</a>
                 </div>
                 <menu class="footer__links">
+                    <?php if ($_SERVER['REQUEST_URI'] === '/portfolio' || $_SERVER['REQUEST_URI'] === '/rent'): ?>
                     <li class="footer__link">
                         <a class="footer__linkText" href="/">Главная</a>
                     </li>
                     <li class="footer__link">
-                        <a class="footer__linkText" href="/">Услуги</a>
+                        <a class="footer__linkText" href="/rent">Аренда инструментов</a>
                     </li>
                     <li class="footer__link">
-                        <a class="footer__linkText" href="/">Калькулятор</a>
+                        <a class="footer__linkText" href="/portfolio">Портфолио</a>
+                    </li>
+                    <?php else: ?>
+                    <li class="footer__link">
+                        <a class="footer__linkText" href="/">Главная</a>
                     </li>
                     <li class="footer__link">
-                        <a class="footer__linkText" href="/">Аренда инструментов</a>
+                        <a class="footer__linkText" href="#service">Услуги</a>
                     </li>
                     <li class="footer__link">
-                        <a class="footer__linkText" href="/">Контакты</a>
+                        <a class="footer__linkText" href="#calculator">Калькулятор</a>
                     </li>
+                    <li class="footer__link">
+                        <a class="footer__linkText" href="/rent">Аренда инструментов</a>
+                    </li>
+                    <li class="footer__link">
+                        <a class="footer__linkText" href="#contact">Контакты</a>
+                    </li>
+                    <?php endif; ?>
                 </menu>
             </div>
             <div class="footer__bottom">
                 <p class="footer__text">
                     Надежный партнер в строительстве. Мы предлагаем полный спектр строительных услуг с гарантией качества.
                 </p>
-                <menu class="footer__socials">
-                    <li class="footer__social">
-                        <a class="footer__socialLink" href="https://vk.com/"><img src="image/vk.svg" alt=""></a>
-                    </li>
-                    <li class="footer__social">
-                        <a class="footer__socialLink" href="https://www.facebook.com/"><img src="image/tg.svg" alt=""></a>
-                    </li>
-                </menu>
+                    <livewire:social-network />
             </div>
         </div>
     </div>

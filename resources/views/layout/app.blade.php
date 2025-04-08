@@ -14,6 +14,7 @@
 <body>
     @include('partials.header')
     <main>
+        @livewire('rent-modal')
         @yield('content')
     </main>
     @include('partials.footer')

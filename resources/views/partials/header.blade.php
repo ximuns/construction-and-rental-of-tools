@@ -20,16 +20,16 @@
                     <a href="/">Главная</a>
                 </li>
                 <li class="root__link">
-                    <a href="#">Услуги</a>
+                    <a href="#service">Услуги</a>
                 </li>
                 <li class="root__link">
-                    <a href="#">Калькулятор</a>
+                    <a href="#calculator">Калькулятор</a>
                 </li>
                 <li class="root__link">
                     <a href="/rent">Аренда инструментов</a>
                 </li>
                 <li class="root__link">
-                    <a href="#">Контакты</a>
+                    <a href="#contact">Контакты</a>
                 </li>
                 <?php endif; ?>
             </menu>

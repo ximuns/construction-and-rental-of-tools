@@ -11,7 +11,7 @@
     <div class="rent__cardPrice">
         <p class="rent__price">{{ $data->price }}₽/день</p>
         @if($data->is_access)
-            <a href="#" class="rent__cardLink">Забронировать</a>
+            <button wire:click="openModal({{ $data->id }})" class="rent__cardLink">Забронировать</button>
         @endif
     </div>
 </div>

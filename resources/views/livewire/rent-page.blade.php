@@ -43,5 +43,4 @@
             </div>
         @endforelse
     </div>
-    @livewire('rent-modal')
 </div>
