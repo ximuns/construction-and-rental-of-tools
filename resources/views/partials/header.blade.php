@@ -3,6 +3,11 @@
         <div class="root__logo">
             <a href="/">СТРОЙЛАЙН</a>
         </div>
+        <button class="burger" aria-label="Меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <div class="root__menu">
             <menu class="root__list">
                 <?php if ($_SERVER['REQUEST_URI'] === '/portfolio' || $_SERVER['REQUEST_URI'] === '/rent'): ?>

@@ -48,3 +48,15 @@ document.addEventListener('livewire:initialized', () => {
 
 
 
+//burgerMenu
+document.querySelector('.burger').addEventListener('click', function() {
+    this.classList.toggle('active');
+    document.querySelector('.root__menu').classList.toggle('active');
+});
+
+document.querySelectorAll('.root__link a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.querySelector('.burger').classList.remove('active');
+        document.querySelector('.root__menu').classList.remove('active');
+    });
+});

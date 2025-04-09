@@ -99,3 +99,37 @@
     font-weight: 500;
     text-align: start;
 }
+
+@media (max-width: 1024px) {
+    .portfolio__cards {
+        grid-template-columns: repeat(auto-fit, minmax(385px, max-content));
+        width: 100%;
+        justify-content: center;
+        justify-items: center;
+    }
+
+    .portfolio__tabs, .rent__tabs {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        flex-direction: column !important;
+    }
+}
+
+
+@media (max-width: 520px) {
+    .rent__search {
+       width: 100% !important; 
+       max-width: none !important;
+       margin: 0 10px 50px 10px !important;
+       box-sizing: border-box !important;
+    }
+}
+
+@media (max-width: 495px) {
+    .portfolio__cardImg {
+       width: 295px;
+    }
+    .portfolio__card {
+        width: 295px;
+    }
+}

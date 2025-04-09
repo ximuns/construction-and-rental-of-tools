@@ -40,7 +40,7 @@ body {
     width: 100%;
     justify-content: space-between;
     border-radius: 10px;
-
+    box-sizing: border-box;
     max-width: 1410px;
     position: fixed;
     top: 0;
@@ -454,6 +454,8 @@ body {
     border: 1px solid #E7E5E4;
     border-radius: 10px;
     box-shadow: 0px 9px 21.4px 0px #00000012;
+    width: 100%;
+    max-width: 780px;
 }
 
 .calculator__radioButtons {
@@ -1156,4 +1158,261 @@ input:checked + .calculator__slider:before {
 
 .notification.error {
     background-color: #F44336;
+}
+
+.calculator__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+@media (max-width: 1440px) {
+    .container {
+        max-width: 1440px;
+        width: 100%;
+        padding: 0 10px; 
+    }
+
+    .main__advantages {
+        grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
+        justify-items: center;
+    }
+
+    .main__title, .services__title, .rent__title, .calculator__title, .portfolio__title{
+        font-size: 6vw !important;
+    }
+
+    .main__subtitle, .services__subtitle, .rent__subtitle, .calculator__subtitle, .portfolio__subtitle {
+        font-size: 3vw !important;
+        max-width: none !important;
+        width: 100% !important;
+    }
+
+    .services__cards {
+        grid-template-columns: repeat(auto-fit, minmax(315px, max-content));
+    }
+
+    .rent__content {
+        width: 100%;
+    }
+
+
+    .rent__cards {
+        grid-template-columns: repeat(auto-fit, minmax(390px, max-content));
+        justify-content: center;
+        justify-items: center;
+        width: 100%;
+    }
+
+    .calculator__radioButtons {
+        grid-template-columns: repeat(auto-fit, minmax(183px, max-content));
+    }
+
+    .root__list {
+        gap: 20px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+}
+
+.burger {
+    display: none;
+    background: transparent;
+    border: none;
+    width: 30px;
+    height: 24px;
+    position: relative;
+    cursor: pointer;
+    z-index: 10000;
+    padding: 0;
+    margin-left: auto;
+}
+
+.burger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: white;
+    position: absolute;
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+.burger span:nth-child(1) { top: 0; }
+.burger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.burger span:nth-child(3) { bottom: 0; }
+
+.burger.active span:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+.burger.active span:nth-child(2) {
+    opacity: 0;
+}
+.burger.active span:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+@media (max-width: 1024px) {
+    .burger {
+        display: block;
+    }
+    
+    .root__menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 320px;
+        height: 100vh;
+        background: #143A78;
+        flex-direction: column;
+        padding: 80px 20px 20px;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+        transition: right 0.4s ease;
+        z-index: 9999;
+    }
+    
+    .root__menu.active {
+        right: 0;
+    }
+    
+    .root__list {
+        flex-direction: column;
+        gap: 15px;
+        margin: 0 0 30px 0;
+    }
+    
+    .root__button {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .contact__linkIcon {
+        min-width: 50px;
+        min-height: 50px;
+    }
+
+    .contact__form {
+        box-sizing: border-box;
+    }
+}
+
+
+
+@media (max-width: 920px) {
+    .contact__title {
+        text-align: center;
+    }
+    .contact__subtitle {
+        text-align: center;
+    }
+    .footer__top {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .footer__links {
+        padding: 0;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .contact__form {
+        max-width: none;
+        width: 100%;
+    } 
+
+    .contact__formGroupInputs {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .contact__content {
+        flex-direction: column;
+        gap: 50px;
+    }
+    
+    .calculator__form {
+        width: 100%;
+        max-width: none;
+        margin: 5px;
+        box-sizing: border-box;
+    }
+
+    .calculator__toggles {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .services {
+        border-radius: 61px 61px 0 0;
+    }
+
+    .rent__name {
+        text-align: start;
+    }
+
+    .rent__availability {
+        max-height: 20px;
+        min-height: 18px;
+    }
+}
+
+@media (max-width: 495px) {
+    .main__button {
+        font-size: 10px;
+        padding: 8px 14px;
+    }
+
+
+    .calculator__radioButtons {
+        justify-content: center;
+    }
+
+    .calculator__toggle {
+        flex-direction: column-reverse;
+        align-items: start;
+    }
+
+    .calculator__resultGroup {
+        flex-direction: column;
+        align-items: start;
+        gap: 10px;
+    }
+
+    .rent__cardImg {
+        width: 290px;
+    }
+
+    .rent__card {
+        width: 290px;
+    }
+}
+
+@media (max-width: 400px) {
+    input:checked + .calculator__slider:before {
+        -webkit-transform: translateX(29px);
+        -ms-transform: translateX(29px);
+        transform: translateX(100%);
+    }
+
+    .services__cardImg {
+        width: 290px;
+    }
+
+    .services__card {
+        width: 290px;
+    }
+
+    .services__name {
+        font-size: 20px !important;
+    }
+
+    .services__cards {
+        justify-content: center;
+        justify-items: center;
+    }
 }
