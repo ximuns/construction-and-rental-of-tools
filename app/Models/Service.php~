@@ -16,7 +16,9 @@ class Service extends Model
         'titleCalculator',
         'description',
         'is_active',
+        'base_price',
         'calculator_config',
+        'formula'
     ];
 
     protected $casts = [

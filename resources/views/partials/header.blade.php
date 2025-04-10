@@ -38,7 +38,7 @@
                 </li>
                 <?php endif; ?>
             </menu>
-            <button class="root__button">Заказать звонок</button>
+            <a href="#contact" class="root__button">Заказать звонок</a>
         </div>
     </div>
 </header>

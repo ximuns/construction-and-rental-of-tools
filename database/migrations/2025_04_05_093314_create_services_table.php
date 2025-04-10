@@ -16,8 +16,12 @@ return new class extends Migration
             $table->string('image');
             $table->string('icon');
             $table->string('title');
+            $table->string('titleCalculator');
             $table->text('description');
             $table->boolean('is_active')->default(false);
+
+            //Калькулятор
+            $table->json('calculator_config')->nullable();
             $table->timestamps();
         });
     }

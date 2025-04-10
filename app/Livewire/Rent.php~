@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Rent extends Component
@@ -18,7 +17,7 @@ class Rent extends Component
         $this->selectedTool = null;
     }
 
-    #[Computed()]
+    
     public function index()
     {
         return \App\Models\Rent::where('is_active', true)->where('is_access', true)->inRandomOrder()->limit(8)->get();
