@@ -1,0 +1,11 @@
+{
+    "build": {
+        "builder": "nixpacks",
+        "config": {
+            "startCommand": "php artisan serve --port=$PORT"
+        }
+    },
+    "deploy": {
+        "startCommand": "php artisan migrate --force && php artisan serve --port=$PORT"
+    }
+}
