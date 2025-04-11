@@ -71,7 +71,7 @@
 }
 
 .portfolio__card:hover {
-    transform: scale(1.05);
+    transform: scale(1.05) !important;
 }
 
 .portfolio__cardImg {
@@ -118,7 +118,7 @@
 
 @media (max-width: 520px) {
     .rent__search {
-       width: 100% !important; 
+       width: 100% !important;
        max-width: none !important;
        margin: 0 10px 50px 10px !important;
        box-sizing: border-box !important;

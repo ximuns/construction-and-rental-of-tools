@@ -141,6 +141,12 @@ body {
     gap: 20px;
 }
 
+.main__title-accent {
+    background: linear-gradient(92.01deg, #4679d9 19.79%, #58A3D5 56.59%, #D8F1FF 97.1%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .main__button {
     background-color: #FFFFFF1A;
     border: 1px solid #455989;
@@ -248,7 +254,7 @@ body {
     border-radius: 102px 102px 0 0 ;
 
     position: relative;
-    top: 75vh;
+    top: 100vh;
     z-index: 20;
 }
 
@@ -326,7 +332,7 @@ body {
 }
 
 .services__card:hover {
-    transform: scale(1.05);
+    transform: scale(1.05) !important;
     transition: transform 300ms;
 }
 
@@ -420,7 +426,7 @@ body {
     padding: 40px 0;
 
     position: relative;
-    top: 75vh;
+    top: 100vh;
     z-index: 20;
 }
 
@@ -546,6 +552,11 @@ body {
 
 .calculator__range {
     width: 100%;
+    appearance: textfield;
+    height: 3px;
+    background: #E7E5E4;
+    border-radius: 10px;
+    outline: none;
 }
 
 .calculator__select {
@@ -683,7 +694,7 @@ input:checked + .calculator__slider:before {
     padding: 40px 0;
 
     position: relative;
-    top: 75vh;
+    top: 100vh;
     z-index: 20;
 }
 
@@ -737,7 +748,7 @@ input:checked + .calculator__slider:before {
 }
 
 .rent__card:hover {
-    transform: scale(1.05);
+    transform: scale(1.05) !important;
 }
 
 .rent__cardName {
@@ -846,7 +857,7 @@ input:checked + .calculator__slider:before {
     padding: 40px 0;
 
     position: relative;
-    top: 75vh;
+    top: 100vh;
     z-index: 20;
 }
 
@@ -1002,7 +1013,7 @@ input:checked + .calculator__slider:before {
 
 .footer {
     position: relative;
-    top: 75vh;
+    top: 100vh;
     z-index: 20;
     background-color: #0A2463;
 }

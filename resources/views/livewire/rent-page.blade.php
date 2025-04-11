@@ -18,7 +18,7 @@
     </div>
     <div class="rent__cards">
         @forelse($rents as $rent)
-            <div class="rent__card">
+            <div class="rent__card" data-aos="fade-up">
                 <img class="rent__cardImg" src="{{ url('storage', $rent->image) }}" alt="{{ $rent->title }}">
                 <div class="rent__cardName">
                     <p class="rent__name">{{ $rent->title }}</p>

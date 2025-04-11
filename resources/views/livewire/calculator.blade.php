@@ -2,8 +2,8 @@
     <div class="calculator__container container">
         <div class="calculator__content">
             <div class="calculator__main">
-                <h1 class="calculator__title">Рассчитайте стоимость услуг</h1>
-                <p class="calculator__subtitle">Получите предварительную оценку стоимости вашего проекта</p>
+                <h1 class="calculator__title" data-aos="fade-up">Рассчитайте стоимость услуг</h1>
+                <p class="calculator__subtitle" data-aos="fade-up">Получите предварительную оценку стоимости вашего проекта</p>
             </div>
 
             <div class="calculator__form">
@@ -25,8 +25,12 @@
 
                 <!-- Динамические поля -->
                 @foreach($inputs as $key => $input)
+                    @if(!isset($input['type']))
+                        @continue
+                    @endif
+
                     <div class="calculator__formGroup">
-                        @if($input['type'] === 'range' || $input['type'] === 'number')
+                        @if($input['type'] === 'range')
                             <div class="calculator__input">
                                 <div class="calculator__label">
                                     <label class="calculator__nameInput">{{ $input['label'] }}</label>
@@ -39,6 +43,11 @@
                                     min="{{ $input['min'] ?? 0 }}"
                                     max="{{ $input['max'] ?? 100 }}"
                                 >
+                            </div>
+                        @elseif($input['type'] === 'number')
+                            <div class="calculator__select">
+                                <label class="calculator__nameInput">{{ $input['label'] }}</label>
+                                <input type="number" class="calculator__selectOptions" min="{{ $input['min'] ?? 0 }}" max="{{ $input['max'] ?? 100 }}" wire:model.lazy="inputs.{{ $key }}.value">
                             </div>
                         @elseif($input['type'] === 'select')
                             <div class="calculator__select">
@@ -53,12 +62,12 @@
                             <div class="calculator__services">
                                 <label class="calculator__nameInput">{{ $input['label'] }}</label>
                                 <div class="calculator__toggles">
-                                    @foreach($input['options'] as $option)
+                                    @foreach($input['options'] as $optionKey => $option)
                                         <div class="calculator__toggle">
                                             <label class="calculator__switch">
                                                 <input
                                                     type="checkbox"
-                                                    value="{{ $option['key'] }}"
+                                                    value="{{ $option['key'] ?? $optionKey }}"
                                                     wire:model.lazy="inputs.{{ $key }}.value"
                                                 >
                                                 <span class="calculator__slider"></span>

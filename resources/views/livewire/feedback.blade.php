@@ -1,4 +1,4 @@
-<form  autocomplete="off" wire:submit.prevent="submit" class="contact__form">
+<form  autocomplete="off" wire:submit.prevent="submit" class="contact__form" data-aos="fade-up">
     <div class="contact__formGroupInputs">
         <div class="contact__inputGroup">
             <label for="name" class="contact__label">Имя</label>

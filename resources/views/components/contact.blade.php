@@ -1,6 +1,6 @@
 @props(['data'])
-<li class="contact__linkBlock">
-    <a class="contact__link" href="">
+<li class="contact__linkBlock" data-aos="fade-up">
+    <a class="contact__link" href="https://yandex.ru/maps/?text={{ $data->address  }}" target="_blank">
         <div class="contact__linkIcon">
             <img class="contact__linkImg" src="{{ asset('assets/image/local.png')  }}" alt="">
         </div>
@@ -10,8 +10,8 @@
         </div>
     </a>
 </li>
-<li class="contact__linkBlock">
-    <a class="contact__link" href="">
+<li class="contact__linkBlock" data-aos="fade-up">
+    <a class="contact__link" href="tel:{{ $data->phone  }}">
         <div class="contact__linkIcon">
             <img class="contact__linkImg" src="{{ asset('assets/image/call.png')  }}" alt="">
         </div>
@@ -21,8 +21,8 @@
         </div>
     </a>
 </li>
-<li class="contact__linkBlock">
-    <a class="contact__link" href="">
+<li class="contact__linkBlock" data-aos="fade-up">
+    <a class="contact__link" href="mailto:{{ $data->email  }}">
         <div class="contact__linkIcon">
             <img class="contact__linkImg" src="{{ asset('assets/image/mail.png')  }}" alt="">
         </div>

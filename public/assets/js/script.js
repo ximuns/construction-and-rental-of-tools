@@ -73,5 +73,3 @@ document.querySelectorAll('.root__link a').forEach(link => {
         document.querySelector('.root__menu').classList.remove('active');
     });
 });
-
-
