@@ -1,0 +1,114 @@
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+
+class Сalculator extends Component
+{
+    public $selectedService;
+    public $inputs = [];
+    public $result = 0;
+    public $serviceConfig;
+
+    public function mount()
+    {
+        $this->selectedService = Service::where('is_active', true)->first();
+        $this->loadServiceConfig();
+    }
+
+    public function updatedSelectedService($value)
+    {
+        $this->selectedService = Service::find($value);
+        $this->loadServiceConfig();
+        $this->calculate();
+    }
+
+    public function loadServiceConfig()
+    {
+        if (!$this->selectedService) return;
+
+        $this->serviceConfig = $this->selectedService->calculator_config;
+        $this->resetInputs();
+    }
+
+    public function resetInputs()
+    {
+        $this->inputs = [];
+
+        foreach ($this->serviceConfig['inputs'] ?? [] as $input) {
+            if ($input['type'] === 'checkbox_group') {
+                foreach ($input['inputs'] ?? [] as $checkbox) {
+                    $this->inputs[$checkbox['key']] = false;
+                }
+            } else {
+                $this->inputs[$input['key']] = $input['min'] ?? 0;
+            }
+        }
+    }
+
+    public function calculate()
+    {
+        if (!$this->selectedService || !$this->serviceConfig) {
+            $this->result = 0;
+            return;
+        }
+
+        try {
+            extract($this->prepareVariables());
+            $this->result = eval('return '.$this->serviceConfig['formula'].';');
+        } catch (\Exception $e) {
+            $this->result = 0;
+        }
+    }
+
+    protected function prepareVariables()
+    {
+        $vars = ['price' => $this->selectedService->price];
+
+        foreach ($this->serviceConfig['inputs'] as $input) {
+            if ($input['type'] === 'select') {
+                $selectedValue = $this->inputs[$input['key']] ?? null;
+                $vars[$input['key'].'_multiplier'] = $this->getMultiplier($input['options'], $selectedValue);
+            }
+            elseif ($input['type'] === 'checkbox_group') {
+                $vars[$input['key'].'_multiplier'] = $this->getCheckboxMultiplier($input['inputs']);
+            }
+            else {
+                $vars[$input['key']] = $this->inputs[$input['key']] ?? 0;
+            }
+        }
+
+        return $vars;
+    }
+
+    protected function getMultiplier($options, $value)
+    {
+        foreach ($options as $option) {
+            if ($option['value'] == $value) {
+                return $option['multiplier'] ?? 1;
+            }
+        }
+        return 1;
+    }
+
+    protected function getCheckboxMultiplier($checkboxes)
+    {
+        $multiplier = 1;
+        foreach ($checkboxes as $checkbox) {
+            if (!empty($this->inputs[$checkbox['key']])) {
+                $multiplier *= $checkbox['multiplier'] ?? 1;
+            }
+        }
+        return $multiplier;
+    }
+
+    public function render()
+    {
+        $services = Service::where('is_active', true)->get();
+        return view('livewire.calculator', [
+            'services' => $services,
+            'currentService' => $this->selectedService
+        ]);
+    }
+}

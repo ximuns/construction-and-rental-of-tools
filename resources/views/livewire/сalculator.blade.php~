@@ -1,0 +1,88 @@
+<section class="calculator" id="calculator">
+    <div class="calculator__container container">
+        <div class="calculator__content">
+            <div class="calculator__main">
+                <h1 class="calculator__title">Рассчитайте стоимость услуг</h1>
+                <p class="calculator__subtitle">Получите предварительную оценку стоимости вашего проекта</p>
+            </div>
+
+            <div class="calculator__form">
+                <!-- Выбор услуги -->
+                <div class="calculator__formGroup">
+                    <label class="calculator__name">Тип проекта</label>
+                    <div class="calculator__radioButtons">
+                        @foreach($services as $service)
+                            <div class="calculator__radioButton"
+                                 wire:click="selectedService = {{ $service->id }}"
+                                 :class="{'active': selectedService == {{ $service->id }}}">
+                                <img src="{{ asset($service->icon) }}" alt="">
+                                <label class="calculator__typeName">{{ $service->titleCalculator }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                @if($currentService)
+                    <!-- Динамические поля -->
+                    @foreach($currentService->calculator_config['inputs'] ?? [] as $input)
+                        <div class="calculator__formGroup">
+                            @if($input['type'] === 'range' || $input['type'] === 'number')
+                                <div class="calculator__input">
+                                    <div class="calculator__label">
+                                        <label class="calculator__nameInput">{{ $input['label'] }}</label>
+                                        <p class="calculator__inputNumber">{{ $inputs[$input['key']] }}</p>
+                                    </div>
+                                    <input type="range"
+                                           wire:model="inputs.{{ $input['key'] }}"
+                                           wire:change="calculate"
+                                           class="calculator__range"
+                                           min="{{ $input['min'] ?? 0 }}"
+                                           max="{{ $input['max'] ?? 100 }}"
+                                           step="{{ $input['step'] ?? 1 }}">
+                                </div>
+                            @elseif($input['type'] === 'select')
+                                <div class="calculator__select">
+                                    <label class="calculator__nameInput">{{ $input['label'] }}</label>
+                                    <select class="calculator__selectOptions"
+                                            wire:model="inputs.{{ $input['key'] }}"
+                                            wire:change="calculate">
+                                        <option value="">Выберите...</option>
+                                        @foreach($input['options'] as $option)
+                                            <option value="{{ $option['value'] }}">{{ $option['label'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @elseif($input['type'] === 'checkbox_group')
+                                <div class="calculator__services">
+                                    <label class="calculator__nameInput">{{ $input['label'] }}</label>
+                                    <div class="calculator__toggles">
+                                        @foreach($input['inputs'] as $checkbox)
+                                            <div class="calculator__toggle">
+                                                <label class="calculator__switch">
+                                                    <input type="checkbox"
+                                                           wire:model="inputs.{{ $checkbox['key'] }}"
+                                                           wire:change="calculate">
+                                                    <span class="calculator__slider"></span>
+                                                </label>
+                                                <p class="calculator__toggleText">{{ $checkbox['label'] }}</p>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    @endforeach
+
+                    <!-- Результат -->
+                    <div class="calculator__result">
+                        <div class="calculator__resultGroup">
+                            <p class="calculator__resultText">Предварительная стоимость:</p>
+                            <p class="calculator__resultPrice">{{ number_format($result, 0, '', ' ') }} ₽</p>
+                        </div>
+                        <p class="calculator__resultDescr">*Финальная цена может отличаться после осмотра объекта</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</section>

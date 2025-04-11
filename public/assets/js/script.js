@@ -3,28 +3,41 @@ const rangeInput = document.getElementById('areaRange');
 const rangeValue = document.getElementById('rangeValue');
 
 if (rangeInput) {
+    let animationFrame;
+    let targetValue = rangeInput.value;
+    let currentValue = targetValue;
+
+    rangeValue.textContent = currentValue;
+
     rangeInput.addEventListener('input', function() {
-        rangeValue.textContent = this.value;
+        targetValue = this.value;
+
+        cancelAnimationFrame(animationFrame);
+
+        const animate = () => {
+            const diff = targetValue - currentValue;
+
+            currentValue += diff * 0.2;
+
+            if (Math.abs(diff) < 0.5) {
+                currentValue = targetValue;
+            }
+
+            rangeValue.textContent = Math.round(currentValue);
+
+            if (currentValue === targetValue || Math.abs(diff) >= 1) {
+                Livewire.dispatch('range-updated', { value: Math.round(currentValue) });
+            }
+
+            if (currentValue !== targetValue) {
+                animationFrame = requestAnimationFrame(animate);
+            }
+        };
+
+        animate();
     });
 }
 
-//RadioButton
-const radioInputs = document.querySelectorAll('.calculator__radioButton');
-let selectedRadio;
-
-radioInputs.forEach(input => {
-    input.addEventListener('click', () => {
-        if (selectedRadio) {
-            selectedRadio.checked = false;
-            selectedRadio.classList.remove('calculator__radioButton_active');
-        }
-        selectedRadio = input;
-        input.checked = true;
-        if (selectedRadio.checked) {
-            selectedRadio.classList.add('calculator__radioButton_active');
-        }
-    });
-});
 
 //notification
 document.addEventListener('livewire:initialized', () => {
@@ -60,3 +73,5 @@ document.querySelectorAll('.root__link a').forEach(link => {
         document.querySelector('.root__menu').classList.remove('active');
     });
 });
+
+

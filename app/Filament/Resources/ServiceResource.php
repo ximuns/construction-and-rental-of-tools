@@ -24,30 +24,6 @@ class ServiceResource extends Resource
         return 'Услуги';
     }
 
-// app/Models/Service.php
-    public function generateFormula(): string
-    {
-        if (empty($this->calculator_config['inputs'])) {
-            return 'price';
-        }
-
-        $formula = 'price';
-
-        foreach ($this->calculator_config['inputs'] as $input) {
-            if (in_array($input['type'], ['range', 'number'])) {
-                $formula .= " * {$input['key']}";
-            }
-            elseif ($input['type'] === 'select') {
-                $formula .= " * {$input['key']}_multiplier";
-            }
-            elseif ($input['type'] === 'checkbox_group') {
-                $formula .= " * {$input['key']}_multiplier";
-            }
-        }
-
-        return $formula;
-    }
-
     public static function form(Form $form): Form
     {
         return $form
@@ -84,7 +60,7 @@ class ServiceResource extends Resource
                         Forms\Components\Tabs\Tab::make('Калькулятор')
                             ->schema([
                                 // Базовая цена
-                                Forms\Components\TextInput::make('price')
+                                Forms\Components\TextInput::make('calculator_config.price')
                                     ->label('Базовая цена')
                                     ->helperText('В формуле указана как price')
                                     ->numeric()
@@ -192,25 +168,8 @@ class ServiceResource extends Resource
                                         ключ - значение поля
                                         ключ_multiplier - для select/checkbox
                                     ')
-                                    ->placeholder('price * quantity * (checkbox_multiplier + select_multiplier)')
-                                    ->rule(function () {
-                                        return new class implements Rule {
-                                            public function passes($attribute, $value) {
-                                                try {
-                                                    $testValues = ['width' => 100, 'height' => 100, 'price' => 1];
-                                                    eval('return '.$value.';');
-                                                    return true;
-                                                } catch (\Throwable $e) {
-                                                    return false;
-                                                }
-                                            }
-                                            public function message() {
-                                                return 'Ошибка в формуле! Проверьте переменные и синтаксис.';
-                                            }
-                                        };
-                                    })
-                                    ->columnSpanFull()
-                            ])
+                                    ->placeholder('price * quantity * (checkbox_multiplier + select_multiplier)'),
+                                ])
                     ])->columnSpanFull(),
             ]);
     }

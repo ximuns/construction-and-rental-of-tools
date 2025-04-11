@@ -33,9 +33,7 @@
                 <div class="services__cards">
                     <livewire:services />
                 </div>
-                <button class="services__button">
-                    Показать еще
-                </button>
+
             </div>
         </div>
     </section>

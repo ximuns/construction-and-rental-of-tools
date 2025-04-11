@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+
+class CalculatorPreview extends Component
+{
+    public $price = 0;
+    public $inputs = [];
+    public $formula = 'price';
+    public $result;
+
+    public function onPreviewDataUpdated($data)
+    {
+        $this->price = $data['price'];
+        $this->inputs = $data['inputs'];
+        $this->formula = $data['formula'];
+        $this->calculate();
+    }
+
+    public function calculate()
+    {
+        try {
+            $vars = array_merge(
+                ['price' => $this->price],
+                $this->inputs,
+                $this->getMultipliers()
+            );
+
+            $this->result = eval('return '.$this->formula.';');
+        } catch (\Exception $e) {
+            $this->result = "Ошибка: ".$e->getMessage();
+        }
+    }
+
+    protected function getMultipliers()
+    {
+        $multipliers = [];
+        foreach ($this->inputs as $input) {
+            if (isset($input['type']) {
+                if ($input['type'] === 'select') {
+                    $multipliers[$input['key'].'_multiplier'] = 1.0;
+                }
+                if ($input['type'] === 'checkbox_group') {
+                    $multipliers[$input['key'].'_multiplier'] = 1.0;
+                }
+            }
+        }
+        return $multipliers;
+    }
+
+    public function render()
+    {
+        return view('livewire.calculator-preview');
+    }
+}
