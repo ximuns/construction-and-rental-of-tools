@@ -38,7 +38,11 @@
                 </li>
                 <?php endif; ?>
             </menu>
-            <a href="#contact" class="root__button">Заказать звонок</a>
+            <?php if ($_SERVER['REQUEST_URI'] === '/portfolio' || $_SERVER['REQUEST_URI'] === '/rent'): ?>
+                <a href="/#contact" class="root__button">Заказать звонок</a>
+            <?php else: ?>
+                <a href="#contact" class="root__button">Заказать звонок</a>
+            <?php endif; ?>
         </div>
     </div>
 </header>

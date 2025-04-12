@@ -1315,7 +1315,6 @@ input:checked + .calculator__slider:before {
 
     .root__button {
         margin-left: 0;
-        width: 100%;
     }
 }
 
