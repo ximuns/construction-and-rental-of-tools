@@ -27,8 +27,8 @@
         <div class="services__container container">
             <div class="services__content">
                 <div class="services__main">
-                    <h1 class="services__title" data-aos="fade-up">Наши услуги</h1>
-                    <p class="services__subtitle" data-aos="fade-up">Профессиональные строительные услуги для вашего дома и бизнеса</p>
+                    <h1 class="services__title" >Наши услуги</h1>
+                    <p class="services__subtitle" >Профессиональные строительные услуги для вашего дома и бизнеса</p>
                 </div>
                 <div class="services__cards">
                     <livewire:services />
@@ -42,8 +42,8 @@
         <div class="rent__container container">
             <div class="rent__content">
                 <div class="rent__main">
-                    <h1 class="rent__title" data-aos="fade-up">Аренда инструментов</h1>
-                    <p class="rent__subtitle" data-aos="fade-up">Широкий выбор профессиональных инструментов для ваших строительных проектов</p>
+                    <h1 class="rent__title" >Аренда инструментов</h1>
+                    <p class="rent__subtitle" >Широкий выбор профессиональных инструментов для ваших строительных проектов</p>
                 </div>
                 <div class="rent__cards">
                     <livewire:rent />
@@ -59,8 +59,8 @@
         <div class="contact__container container">
             <div class="contact__content">
                 <div class="contact__main">
-                    <h1 class="contact__title" data-aos="fade-up">Свяжитесь с нами</h1>
-                    <p class="contact__subtitle" data-aos="fade-up">У вас есть вопросы о наших услугах? Заполните форму, и наши специалисты свяжутся с вами в ближайшее время.</p>
+                    <h1 class="contact__title" >Свяжитесь с нами</h1>
+                    <p class="contact__subtitle" >У вас есть вопросы о наших услугах? Заполните форму, и наши специалисты свяжутся с вами в ближайшее время.</p>
                     <menu class="contact__links">
                       <livewire:contact />
                     </menu>

@@ -12,7 +12,7 @@
     </div>
     <div class="portfolio__cards">
             @foreach($portfolios as $portfolio)
-                <div class="portfolio__card" data-aos="fade-up">
+                <div class="portfolio__card" >
                     <img class="portfolio__cardImg" src="{{ url('storage', $portfolio->image) }}" alt="{{ $portfolio->title }}">
                     <p class="portfolio__cardTitle">{{ $portfolio->title }}</p>
                     <p class="portfolio__cardText">{{ $portfolio->description }}</p>

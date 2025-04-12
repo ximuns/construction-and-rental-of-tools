@@ -1,5 +1,5 @@
 @props(['data'])
-<div class="rent__card" data-aos="fade-up">
+<div class="rent__card" >
     <img class="rent__cardImg" src="{{ url('storage', $data->image) }}" alt="Картинка услуги">
     <div class="rent__cardInfo">
         <div class="rent__cardName">

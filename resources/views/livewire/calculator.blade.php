@@ -2,8 +2,8 @@
     <div class="calculator__container container">
         <div class="calculator__content">
             <div class="calculator__main">
-                <h1 class="calculator__title" data-aos="fade-up">Рассчитайте стоимость услуг</h1>
-                <p class="calculator__subtitle" data-aos="fade-up">Получите предварительную оценку стоимости вашего проекта</p>
+                <h1 class="calculator__title" >Рассчитайте стоимость услуг</h1>
+                <p class="calculator__subtitle" >Получите предварительную оценку стоимости вашего проекта</p>
             </div>
 
             <div class="calculator__form">
