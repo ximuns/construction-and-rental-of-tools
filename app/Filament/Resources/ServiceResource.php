@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Collection;
 
 class ServiceResource extends Resource
 {
@@ -178,10 +179,55 @@ class ServiceResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Название услуги')
+                    ->sortable()
+                    ->searchable()
+                    ->limit(25),
+
+                Tables\Columns\TextColumn::make('titleCalculator')
+                    ->label('Тип в калькуляторе')
+                    ->sortable()
+                    ->searchable()
+                    ->limit(25),
+
+                Tables\Columns\IconColumn::make('is_active')
+                    ->label('Активен')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-eye')
+                    ->falseIcon('heroicon-o-eye-slash'),
+
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Обновлено')
+                    ->dateTime('d.m.Y H:i')
+                    ->sortable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('is_active')
+                    ->label('Статус активности')
+                    ->options([
+                        true => 'Активные',
+                        false => 'Неактивные',
+                    ]),
+
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        Forms\Components\DatePicker::make('created_from')
+                            ->label('Создано с'),
+                        Forms\Components\DatePicker::make('created_until')
+                            ->label('Создано до'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -189,8 +235,24 @@ class ServiceResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('activate')
+                        ->label('Активировать')
+                        ->icon('heroicon-o-eye')
+                        ->action(function (Collection $records) {
+                            $records->each->update(['is_active' => true]);
+                        }),
+                    Tables\Actions\BulkAction::make('deactivate')
+                        ->label('Деактивировать')
+                        ->icon('heroicon-o-eye-slash')
+                        ->action(function (Collection $records) {
+                            $records->each->update(['is_active' => false]);
+                        }),
                 ]),
-            ]);
+            ])
+            ->defaultSort('updated_at', 'desc')
+            ->emptyStateHeading('Нет услуг')
+            ->emptyStateDescription('Создайте первую услугу')
+            ->emptyStateIcon('heroicon-o-briefcase');
     }
 
     public static function getRelations(): array

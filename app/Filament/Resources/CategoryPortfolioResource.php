@@ -19,6 +19,14 @@ class CategoryPortfolioResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string
+    {
+        return 'Категории портфолио';
+    }
+
+    protected static ?string $navigationGroup = 'Портфолио';
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -37,7 +45,9 @@ class CategoryPortfolioResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Название категории'),
+
             ])
             ->filters([
                 //

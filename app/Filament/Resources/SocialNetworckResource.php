@@ -13,12 +13,36 @@ use Filament\Tables\Table;
 use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Validation\ValidationException;
 
 class SocialNetworckResource extends Resource
 {
     protected static ?string $model = SocialNetworck::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Социальные сети';
+    }
+
+    protected static ?string $navigationGroup = 'Как вас найти';
+
+    public static function canCreate(): bool
+    {
+        return SocialNetworck::count() === 0;
+    }
+
+    public static function mutateFormDataBeforeCreate(array $data): array
+    {
+        // Проверка на наличие записи
+        if (SocialNetworck::exists()) {
+            throw ValidationException::withMessages([
+                'global' => 'Настройки сайта уже существуют. Вы можете редактировать существующую запись.',
+            ]);
+        }
+        return $data;
+    }
 
     public static function form(Form $form): Form
     {
@@ -30,10 +54,10 @@ class SocialNetworckResource extends Resource
                             ->label('Социальные сети')
                             ->schema([
                                 Forms\Components\TextInput::make('link')
-                                    ->label('ссылка')
+                                    ->label('Ссылка')
                                     ->required(),
                                 Forms\Components\FileUpload::make('icon')
-                                    ->label('иконка')
+                                    ->label('Иконка')
                                     ->acceptedFileTypes(['image/png', 'image/svg+xml'])
                                     ->image()
                                     ->required(),
@@ -46,7 +70,10 @@ class SocialNetworckResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('custom')
+                    ->label('Настройка социальных сетей')
+                    ->getStateUsing(fn ($record) => 'Настройка социальных сетей')
+                    ->sortable(false),
             ])
             ->filters([
                 //
@@ -55,10 +82,8 @@ class SocialNetworckResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ])
+            ->paginated(false);
     }
 
     public static function getRelations(): array

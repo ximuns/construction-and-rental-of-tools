@@ -17,7 +17,30 @@ class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-ellipsis';
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Контакты';
+    }
+
+    protected static ?string $navigationGroup = 'Как вас найти';
+
+    public static function canCreate(): bool
+    {
+        return Contact::count() === 0;
+    }
+
+    public static function mutateFormDataBeforeCreate(array $data): array
+    {
+        // Проверка на наличие записи
+        if (Contact::exists()) {
+            throw ValidationException::withMessages([
+                'global' => 'Настройки сайта уже существуют. Вы можете редактировать существующую запись.',
+            ]);
+        }
+        return $data;
+    }
 
     public static function form(Form $form): Form
     {
@@ -45,7 +68,10 @@ class ContactResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('custom')
+                    ->label('Настройка контактов')
+                    ->getStateUsing(fn ($record) => 'Настройка контактов')
+                    ->sortable(false),
             ])
             ->filters([
                 //
@@ -54,10 +80,9 @@ class ContactResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+
+            ])
+            ->paginated(false);
     }
 
     public static function getRelations(): array

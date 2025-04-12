@@ -19,6 +19,13 @@ class CategoryRentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string
+    {
+        return 'Категории инструмента';
+    }
+
+    protected static ?string $navigationGroup = 'Аренда инструментов';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -37,7 +44,10 @@ class CategoryRentResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Название категории')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 //
