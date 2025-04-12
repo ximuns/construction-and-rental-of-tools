@@ -1554,6 +1554,10 @@ input:checked + .calculator__slider:before {
     .rent__card {
         width: 290px;
     }
+
+    .main__content {
+        margin: 100px 0 120px 0;
+    }
 }
 
 @media (max-width: 400px) {

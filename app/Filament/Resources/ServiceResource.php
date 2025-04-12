@@ -89,7 +89,7 @@ class ServiceResource extends Resource
                                             ->label('Заголовок')
                                             ->required()
                                             ->columnSpan(1)
-                                            ->live()
+                                            ->live(debounce: 500)
                                             ->afterStateUpdated(function ($state, Forms\Set $set, $get) {
                                                 if ($state) {
                                                     $key = Str::slug($state, '_');
@@ -144,7 +144,7 @@ class ServiceResource extends Resource
                                                         ->schema([
                                                             Forms\Components\TextInput::make('label')
                                                                 ->label('Отображаемый текст')
-                                                                ->live()
+                                                                ->live(debounce: 500)
                                                                 ->afterStateUpdated(function ($state, Forms\Set $set, $get) {
                                                                     if ($state && !$get('value')) {
                                                                         $value = Str::slug($state, '_');
@@ -178,7 +178,7 @@ class ServiceResource extends Resource
                                                         ->schema([
                                                             Forms\Components\TextInput::make('label')
                                                                 ->label('Текст')
-                                                                ->live()
+                                                                ->live(debounce: 500)
                                                                 ->afterStateUpdated(function ($state, Forms\Set $set, $get) {
                                                                     if ($state && !$get('key')) {
                                                                         $key = Str::slug($state, '_');
@@ -231,56 +231,56 @@ class ServiceResource extends Resource
                                     ->label('Формула расчета')
                                     ->required()
                                     ->columnSpanFull()
-                                    ->hint(function ($get) {
-                                        $variables = ['price'];
-                                        $inputs = $get('calculator_config.inputs') ?? [];
-
-                                        foreach ($inputs as $input) {
-                                            if (isset($input['key']) && in_array($input['type'], ['number', 'range'])) {
-                                                $variables[] = $input['key'];
-                                            }
-
-                                            if (isset($input['key']) && in_array($input['type'], ['select', 'checkbox_group'])) {
-                                                $variables[] = $input['key'] . '_multiplier';
-                                            }
-                                        }
-
-                                        return "Доступные переменные:\n" . implode("\n", array_map(fn($v) => "• {$v}", $variables));
-                                    })
                                     ->rules([
                                         function ($get) {
                                             return function (string $attribute, $value, $fail) use ($get) {
-                                                $allowedVars = ['price'];
+                                                // Получаем список допустимых переменных
+                                                $allowedVars = ['price']; // Базовая цена всегда доступна
                                                 $inputs = $get('calculator_config.inputs') ?? [];
 
                                                 foreach ($inputs as $input) {
-                                                    if (isset($input['key']) && in_array($input['type'], ['number', 'range'])) {
-                                                        $allowedVars[] = $input['key'];
-                                                    }
-
-                                                    if (isset($input['key']) && in_array($input['type'], ['select', 'checkbox_group'])) {
-                                                        $allowedVars[] = $input['key'] . '_multiplier';
+                                                    if (isset($input['key'])) {
+                                                        if (in_array($input['type'], ['number', 'range'])) {
+                                                            $allowedVars[] = $input['key'];
+                                                        }
+                                                        if (in_array($input['type'], ['select', 'checkbox_group'])) {
+                                                            $allowedVars[] = $input['key'] . '_multiplier';
+                                                        }
                                                     }
                                                 }
 
+                                                // Проверяем на русские буквы
                                                 if (preg_match('/[а-яА-ЯёЁ]/u', $value)) {
                                                     $fail("Формула содержит русские буквы. Используйте только английские буквы в переменных.");
                                                     return;
                                                 }
 
+                                                // Проверяем использование несуществующих переменных
                                                 preg_match_all('/[a-zA-Z_]+(?:_multiplier)?/', $value, $matches);
                                                 $usedVars = array_unique($matches[0]);
 
-                                                foreach ($usedVars as $var) {
-                                                    if (!in_array($var, $allowedVars)) {
-                                                        $fail("Переменная '{$var}' не существует. Доступные переменные: " . implode(', ', $allowedVars));
-                                                        return;
-                                                    }
+                                                $undefinedVars = array_diff($usedVars, $allowedVars);
+                                                if (!empty($undefinedVars)) {
+                                                    $fail("Неизвестные переменные: " . implode(', ', $undefinedVars) .
+                                                        ". Доступные переменные: " . implode(', ', $allowedVars));
+                                                    return;
                                                 }
 
+                                                // Проверяем синтаксис формулы (без реального выполнения)
                                                 try {
-                                                    $testValues = array_fill_keys($allowedVars, 1);
-                                                    eval('return ' . $value . ';');
+                                                    // Заменяем все переменные на тестовые значения 1
+                                                    $testFormula = preg_replace_callback(
+                                                        '/[a-zA-Z_]+(?:_multiplier)?/',
+                                                        fn($match) => '1', // заменяем все переменные на 1
+                                                        $value
+                                                    );
+
+                                                    // Пробуем "вычислить" формулу
+                                                    $result = @eval('return ' . $testFormula . ';');
+
+                                                    if ($result === false) {
+                                                        throw new \Exception("Ошибка в синтаксисе формулы");
+                                                    }
                                                 } catch (\Throwable $e) {
                                                     $fail("Ошибка в синтаксисе формулы: " . $e->getMessage());
                                                 }
