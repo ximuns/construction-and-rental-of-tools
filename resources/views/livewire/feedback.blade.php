@@ -9,15 +9,20 @@
              x-data="{ phone: '' }"
              x-init="
              $nextTick(() => {
-                 IMask($refs.phoneInput, {
+                 const mask = IMask($refs.phoneInput, {
                      mask: '+{7} (000) 000-00-00',
-                     lazy: false,
-                     commit: function(value, masked) {
-                         $wire.set('phone', masked.value);
+                     lazy: false
+                 });
+                 mask.on('accept', () => {
+                     $wire.set('phone', mask.value);
+                 });
+                 $wire.$watch('phone', (value) => {
+                     if (value !== mask.value) {
+                         mask.updateValue();
                      }
                  });
              })
-        ">
+         ">
             <label for="phone" class="contact__label">Телефон</label>
             <input
                 x-ref="phoneInput"
@@ -27,7 +32,6 @@
                 class="contact__input"
                 type="text"
                 placeholder="+7 (___) ___-__-__"
-                data-mask="+7 (____) ___-__-__"
             >
             @error('phone') <span class="contact__error">{{ $message }}</span> @enderror
         </div>

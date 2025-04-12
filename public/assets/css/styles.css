@@ -22,6 +22,16 @@ input, textarea, select {
     outline: none;
 }
 
+select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' enable-background='new 0 0 200 200' viewBox='0 0 350 150'%3E%3Cpath d='m200 54.1-93 93-92-93.4 16.2-13.2 74.8 74.8 75.8-75.1z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0px center;
+    background-size: 20px;
+    padding-right: 10px; 
+    appearance: none;
+    font-size: 16px;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0 auto;
@@ -256,6 +266,11 @@ body {
     position: relative;
     top: 100vh;
     z-index: 20;
+}
+
+.services__arrow , .rent__arrow {
+    width: 17px;
+    height: 58px;
 }
 
 .services__main {
@@ -552,11 +567,11 @@ body {
 
 .calculator__range {
     width: 100%;
-    appearance: textfield;
     height: 3px;
-    background: #E7E5E4;
     border-radius: 10px;
     outline: none;
+    background-color: #F9FAFB;
+    border: 1px solid #E7E5E4;
 }
 
 .calculator__select {
@@ -569,7 +584,9 @@ body {
 .calculator__selectOptions {
     padding: 13px 15px;
     border-radius: 5px;
+    font-size: 16px;
     border: 1px solid #E7E5E4;
+    appearance: none; 
 }
 
 .calculator__services {

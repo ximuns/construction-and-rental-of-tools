@@ -14,8 +14,8 @@
                 <h1 class="main__title"><span class="main__title-accent">Cтроительство</span> под ключ</h1>
                 <p class="main__subtitle">Строительство малоэтажных домов, заборов, навесов, монтаж окон</p>
                 <div class="main__buttons">
-                    <button class="main__button">Рассчитать стоимость</button>
-                    <button class="main__button">Каталог услуг</button>
+                    <a class="main__button" href="#calculator" >Рассчитать стоимость</a>
+                    <a class="main__button" href="#service">Услуги</a>
                 </div>
                 <div class="main__advantages">
                     <livewire:advantage />

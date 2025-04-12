@@ -36,7 +36,7 @@ class Feedback extends Component
 
         if (RateLimiter::tooManyAttempts($key, 5)) {
             $this->dispatch('notification-show', type: 'error', message: 'Слишком много попыток. Попробуйте позже.');
-            abort(429, 'Слишком много попыток');
+            return response()->json(['error' => 'Слишком много попыток'], 429);
         }
 
         RateLimiter::hit($key, 3600);
