@@ -37,6 +37,19 @@
             </div>
         </div>
     </section>
+    <section class="advantages" id ="advantages">
+    <div class="advantages__container container">
+            <div class="advantages__content">
+                <div class="advantages__main">
+                    <h1 class="advantages__title" >Наш подход к работе</h1>
+                    <p class="advantages__subtitle" >Мы не просто строим - мы создаем пространства, которые идеально соответствуют вашим потребностям и предпочтениям</p>
+                </div>
+                <div class="advantages__cards">
+                    <livewire:advantages-page />
+                </div>
+            </div>
+        </div>
+    </section>
     <livewire:calculator />
     <section class="rent" id="rent">
         <div class="rent__container container">
