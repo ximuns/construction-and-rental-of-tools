@@ -29,7 +29,7 @@
                         @continue
                     @endif
 
-                    <div class="calculator__formGroup">
+                        <div class="calculator__formGroup" wire:key="input-{{ $selectedServiceId }}-{{ $key }}">
                         @if($input['type'] === 'range')
                             <div class="calculator__input">
                                 <div class="calculator__label">
@@ -97,12 +97,13 @@
 
 @push('scripts')
     <script>
-        // Обновление значения для range-инпутов
-        document.addEventListener('livewire:load', function() {
-            Livewire.hook('element.updated', (el, component) => {
+        document.addEventListener('livewire:init', function() {
+            Livewire.hook('morph.added', ({ el }) => {
                 if (el.classList.contains('calculator__range')) {
-                    const valueDisplay = el.closest('.calculator__input').querySelector('.calculator__inputNumber');
-                    valueDisplay.textContent = el.value;
+                    const valueDisplay = el.closest('.calculator__input')?.querySelector('.calculator__inputNumber');
+                    if (valueDisplay) {
+                        valueDisplay.textContent = el.value;
+                    }
                 }
             });
         });

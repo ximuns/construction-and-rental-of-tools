@@ -25,6 +25,11 @@ class Calculator extends Component
     public function mount()
     {
         $this->services = Service::where('is_active', true)->get();
+
+        if ($this->services->isEmpty()) {
+            throw new \Exception("No active services found");
+        }
+
         $this->selectedServiceId = $this->services->first()->id;
         $this->loadServiceInputs();
     }
@@ -33,52 +38,92 @@ class Calculator extends Component
     protected function getDefaultValue($input)
     {
         if (!isset($input['type'])) {
-            Log::error('Input type missing:', $input);
+            Log::error('Input type missing:', ['input' => $input]);
             return null;
         }
 
-        return match($input['type']) {
-            'range', 'number' => $input['min'] ?? 0,
-            'select' => $input['options'][0]['value'] ?? '',
-            'checkbox_group' => [],
-            default => null
-        };
+        switch ($input['type']) {
+            case 'range':
+            case 'number':
+                return $input['min'] ?? 0;
+            case 'select':
+                return $input['options'][0]['value'] ?? '';
+            case 'checkbox_group':
+                return [];
+            default:
+                Log::warning('Unknown input type:', ['type' => $input['type']]);
+                return null;
+        }
     }
 
     public function loadServiceInputs()
     {
-        $service = Service::findOrFail($this->selectedServiceId);
-        $config = $service->calculator_config;
+        try {
+            $this->resetErrorBag();
+            $service = Service::findOrFail($this->selectedServiceId);
 
-        $this->inputs = [];
+            $this->inputs = [];
 
-        foreach ($config['inputs'] ?? [] as $input) {
-            if (!isset($input['key']) || !isset($input['type'])) {
-                Log::error('Invalid input configuration:', $input);
-                continue;
+            $config = $service->calculator_config;
+            if (empty($config['inputs'])) {
+                throw new \Exception("No inputs in calculator config");
             }
 
-            $key = $input['key'];
-            $this->inputs[$key] = [
-                'type' => $input['type'],
-                'label' => $input['label'] ?? '',
-                'value' => $this->getDefaultValue($input),
-                'min' => $input['min'] ?? null,
-                'max' => $input['max'] ?? null,
-                'options' => $input['options'] ?? ($input['inputs'] ?? [])
-            ];
-        }
+            foreach ($config['inputs'] as $input) {
+                if (empty($input['key']) || empty($input['type'])) {
+                    continue;
+                }
 
-        $this->calculate();
+                $this->inputs[$input['key']] = [
+                    'type' => $input['type'],
+                    'label' => $input['label'] ?? '',
+                    'value' => $this->getDefaultValue($input),
+                    'min' => $input['min'] ?? null,
+                    'max' => $input['max'] ?? null,
+                    'options' => $input['options'] ?? ($input['inputs'] ?? [])
+                ];
+            }
+
+            $this->calculate();
+        } catch (\Throwable $e) {
+            Log::error("Service inputs load failed", [
+                'service_id' => $this->selectedServiceId,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            $this->inputs = [];
+            $this->addError('service', 'Ошибка загрузки услуги');
+        }
     }
 
     public function updatedSelectedServiceId()
     {
+        Log::channel('calculator')->debug('Service changed', [
+            'old_service' => $this->selectedServiceId,
+            'new_service' => $this->selectedServiceId,
+            'inputs_before' => $this->inputs
+        ]);
+
         $this->loadServiceInputs();
+
+        Log::channel('calculator')->debug('Service changed - after load', [
+            'inputs_after' => $this->inputs
+        ]);
     }
 
-    public function updatedInputs()
+    public function updatedInputs($value, $key)
     {
+        $currentService = Service::find($this->selectedServiceId);
+        $validKeys = collect($currentService->calculator_config['inputs'] ?? [])
+            ->pluck('key')
+            ->toArray();
+
+        foreach ($this->inputs as $inputKey => $input) {
+            if (!in_array($inputKey, $validKeys)) {
+                unset($this->inputs[$inputKey]);
+            }
+        }
+
         $this->calculate();
     }
 
@@ -90,10 +135,20 @@ class Calculator extends Component
 
             $vars = ['price' => (float)$config['price']];
 
+            Log::debug('Calculation inputs', [
+                'inputs' => $this->inputs,
+                'config' => $config
+            ]);
+
             foreach ($this->inputs as $key => $input) {
                 $vars[$key] = is_array($input['value']) ? 1 : (float)$input['value'];
-
                 $vars[$key.'_multiplier'] = $this->getMultiplier($key, $input);
+
+                Log::debug('Calculation var', [
+                    'key' => $key,
+                    'value' => $vars[$key],
+                    'multiplier' => $vars[$key.'_multiplier']
+                ]);
             }
 
             $this->validateFormulaVariables($config['formula'], array_keys($vars));
@@ -101,21 +156,18 @@ class Calculator extends Component
             $el = new ExpressionLanguage();
             $this->result = round($el->evaluate($config['formula'], $vars), 2);
 
-            Log::channel('calculator')->info('Calculation success', [
-                'service' => $service->title,
+            Log::info('Calculation result', [
                 'formula' => $config['formula'],
                 'vars' => $vars,
                 'result' => $this->result
             ]);
 
         } catch (\Throwable $e) {
-            Log::channel('calculator')->error('Calculation failed', [
+            Log::error('Calculation failed', [
                 'error' => $e->getMessage(),
-                'formula' => $config['formula'] ?? null,
-                'vars' => $vars ?? null
+                'trace' => $e->getTraceAsString()
             ]);
             $this->result = 0;
-            $this->addError('calculation', 'Ошибка расчета: '.$e->getMessage());
         }
     }
 
@@ -135,21 +187,30 @@ class Calculator extends Component
     protected function getMultiplier($key, $input)
     {
         try {
+            if (!is_array($input) || !isset($input['type'])) {
+                return 1;
+            }
+
             if ($input['type'] === 'select') {
-                $option = collect($input['options'])->firstWhere('value', $input['value']);
-                return $option ? (float)($option['multiplier'] ?? 1) : 1;
+                $selectedOption = collect($input['options'] ?? [])
+                    ->firstWhere('value', $input['value'] ?? '');
+
+                return $selectedOption['multiplier'] ?? 1;
             }
 
             if ($input['type'] === 'checkbox_group') {
-                return collect($input['options'])
-                    ->filter(fn($opt) => in_array($opt['key'], $input['value'] ?? []))
-                    ->reduce(fn($carry, $opt) => $carry + (float)($opt['multiplier'] ?? 1), 0);
+                return collect($input['options'] ?? [])
+                    ->filter(fn($opt) => in_array($opt['key'] ?? '', $input['value'] ?? []))
+                    ->sum('multiplier');
+            }
+
+            if (in_array($input['type'], ['number', 'range'])) {
+                return $input['multiplier'] ?? 1;
             }
 
             return 1;
-
         } catch (\Throwable $e) {
-            Log::channel('calculator')->error('Multiplier calculation failed', [
+            Log::error("Multiplier calculation failed", [
                 'key' => $key,
                 'input' => $input,
                 'error' => $e->getMessage()
