@@ -14,6 +14,8 @@ use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class ServiceResource extends Resource
 {
@@ -60,20 +62,17 @@ class ServiceResource extends Resource
                             ]),
                         Forms\Components\Tabs\Tab::make('Калькулятор')
                             ->schema([
-                                // Базовая цена
                                 Forms\Components\TextInput::make('calculator_config.price')
                                     ->label('Базовая цена')
                                     ->helperText('В формуле указана как price')
                                     ->numeric()
                                     ->required(),
 
-                                // Динамические инпуты
                                 Forms\Components\Repeater::make('calculator_config.inputs')
                                     ->label('Элементы калькулятора')
                                     ->collapsible()
                                     ->itemLabel(fn (array $state): string => $state['label'] ?? 'Новый элемент')
                                     ->schema([
-                                        // Выбор типа элемента
                                         Forms\Components\Select::make('type')
                                             ->label('Тип элемента')
                                             ->options([
@@ -86,24 +85,46 @@ class ServiceResource extends Resource
                                             ->live()
                                             ->columnSpan(1),
 
-                                        // Общие поля
                                         Forms\Components\TextInput::make('label')
                                             ->label('Заголовок')
                                             ->required()
-                                            ->columnSpan(1),
+                                            ->columnSpan(1)
+                                            ->live()
+                                            ->afterStateUpdated(function ($state, Forms\Set $set, $get) {
+                                                if ($state) {
+                                                    $key = Str::slug($state, '_');
+                                                    $inputs = $get('../../') ?? [];
+                                                    $counter = 1;
+                                                    $originalKey = $key;
+
+                                                    while (collect($inputs)->contains('key', $key)) {
+                                                        $key = $originalKey . '_' . $counter;
+                                                        $counter++;
+                                                    }
+
+                                                    $set('key', $key);
+                                                }
+                                            }),
 
                                         Forms\Components\TextInput::make('key')
                                             ->label('Ключ (для формулы)')
-                                            ->helperText('Например: quantity')
+                                            ->helperText('Только английские буквы и подчеркивания')
                                             ->visible(fn ($get) => !in_array($get('type'), ['group']))
-                                            ->columnSpan(1),
+                                            ->columnSpan(1)
+                                            ->rules(['regex:/^[a-z_]+$/'])
+                                            ->validationMessages([
+                                                'regex' => 'Ключ должен содержать только английские буквы в нижнем регистре и подчеркивания',
+                                            ])
+                                            ->afterStateHydrated(function ($state, Forms\Set $set) {
+                                                if ($state && !preg_match('/^[a-z_]+$/', $state)) {
+                                                    $set('key', Str::slug($state, '_'));
+                                                }
+                                            }),
 
-                                        // Настройки для разных типов
                                         Forms\Components\Group::make()
                                             ->schema(function ($get) {
                                                 $schema = [];
 
-                                                // Для числовых полей и ползунков
                                                 if (in_array($get('type'), ['number', 'range'])) {
                                                     $schema[] = Forms\Components\Grid::make()
                                                         ->schema([
@@ -117,33 +138,65 @@ class ServiceResource extends Resource
                                                         ->columns(2);
                                                 }
 
-                                                // Для выпадающего списка
                                                 if ($get('type') === 'select') {
                                                     $schema[] = Forms\Components\Repeater::make('options')
                                                         ->label('Варианты выбора')
                                                         ->schema([
                                                             Forms\Components\TextInput::make('label')
-                                                                ->label('Отображаемый текст'),
+                                                                ->label('Отображаемый текст')
+                                                                ->live()
+                                                                ->afterStateUpdated(function ($state, Forms\Set $set, $get) {
+                                                                    if ($state && !$get('value')) {
+                                                                        $value = Str::slug($state, '_');
+                                                                        $options = $get('../../options') ?? [];
+                                                                        $counter = 1;
+                                                                        $originalValue = $value;
+
+                                                                        while (collect($options)->contains('value', $value)) {
+                                                                            $value = $originalValue . '_' . $counter;
+                                                                            $counter++;
+                                                                        }
+
+                                                                        $set('value', $value);
+                                                                    }
+                                                                }),
                                                             Forms\Components\TextInput::make('value')
-                                                                ->label('Значение'),
+                                                                ->label('Значение')
+                                                                ->rules(['regex:/^[a-z_]+$/']),
                                                             Forms\Components\TextInput::make('multiplier')
                                                                 ->label('Множитель цены')
-                                                                ->helperText('Пример: 1.02 = 2%')
+                                                                ->helperText('Пример: 1.02 = +2% к цене')
                                                                 ->numeric()
                                                                 ->default(1.0)
                                                         ])
                                                         ->columns(3);
                                                 }
 
-                                                // Для группы чекбоксов
                                                 if ($get('type') === 'checkbox_group') {
                                                     $schema[] = Forms\Components\Repeater::make('inputs')
                                                         ->label('Чекбоксы')
                                                         ->schema([
                                                             Forms\Components\TextInput::make('label')
-                                                                ->label('Текст'),
+                                                                ->label('Текст')
+                                                                ->live()
+                                                                ->afterStateUpdated(function ($state, Forms\Set $set, $get) {
+                                                                    if ($state && !$get('key')) {
+                                                                        $key = Str::slug($state, '_');
+                                                                        $inputs = $get('../../inputs') ?? [];
+                                                                        $counter = 1;
+                                                                        $originalKey = $key;
+
+                                                                        while (collect($inputs)->contains('key', $key)) {
+                                                                            $key = $originalKey . '_' . $counter;
+                                                                            $counter++;
+                                                                        }
+
+                                                                        $set('key', $key);
+                                                                    }
+                                                                }),
                                                             Forms\Components\TextInput::make('key')
-                                                                ->label('Ключ'),
+                                                                ->label('Ключ')
+                                                                ->rules(['regex:/^[a-z_]+$/']),
                                                             Forms\Components\TextInput::make('multiplier')
                                                                 ->label('Множитель')
                                                                 ->numeric()
@@ -157,21 +210,137 @@ class ServiceResource extends Resource
                                             ->columnSpanFull()
                                     ])
                                     ->columns(2)
-                                    ->columnSpanFull(),
+                                    ->columnSpanFull()
+                                    ->afterStateUpdated(function ($state, Forms\Set $set, Forms\Get $get) {
+                                        $keys = [];
+                                        $inputs = $get('../../') ?? [];
 
-                                // Ручной ввод формулы
+                                        foreach ($inputs as $input) {
+                                            if (isset($input['key'])) {
+                                                if (in_array($input['key'], $keys)) {
+                                                    throw ValidationException::withMessages([
+                                                        'calculator_config.inputs' => "Ключ '{$input['key']}' уже используется. Ключи должны быть уникальными.",
+                                                    ]);
+                                                }
+                                                $keys[] = $input['key'];
+                                            }
+                                        }
+                                    }),
+
                                 Forms\Components\Textarea::make('calculator_config.formula')
                                     ->label('Формула расчета')
                                     ->required()
-                                    ->hint('
-                                        Доступные переменные:
-                                        price - базовая цена
-                                        ключ - значение поля
-                                        ключ_multiplier - для select/checkbox
-                                    ')
-                                    ->placeholder('price * quantity * (checkbox_multiplier + select_multiplier)'),
-                                ])
-                    ])->columnSpanFull(),
+                                    ->columnSpanFull()
+                                    ->hint(function ($get) {
+                                        $variables = ['price'];
+                                        $inputs = $get('calculator_config.inputs') ?? [];
+
+                                        foreach ($inputs as $input) {
+                                            if (isset($input['key']) && in_array($input['type'], ['number', 'range'])) {
+                                                $variables[] = $input['key'];
+                                            }
+
+                                            if (isset($input['key']) && in_array($input['type'], ['select', 'checkbox_group'])) {
+                                                $variables[] = $input['key'] . '_multiplier';
+                                            }
+                                        }
+
+                                        return "Доступные переменные:\n" . implode("\n", array_map(fn($v) => "• {$v}", $variables));
+                                    })
+                                    ->rules([
+                                        function ($get) {
+                                            return function (string $attribute, $value, $fail) use ($get) {
+                                                $allowedVars = ['price'];
+                                                $inputs = $get('calculator_config.inputs') ?? [];
+
+                                                foreach ($inputs as $input) {
+                                                    if (isset($input['key']) && in_array($input['type'], ['number', 'range'])) {
+                                                        $allowedVars[] = $input['key'];
+                                                    }
+
+                                                    if (isset($input['key']) && in_array($input['type'], ['select', 'checkbox_group'])) {
+                                                        $allowedVars[] = $input['key'] . '_multiplier';
+                                                    }
+                                                }
+
+                                                if (preg_match('/[а-яА-ЯёЁ]/u', $value)) {
+                                                    $fail("Формула содержит русские буквы. Используйте только английские буквы в переменных.");
+                                                    return;
+                                                }
+
+                                                preg_match_all('/[a-zA-Z_]+(?:_multiplier)?/', $value, $matches);
+                                                $usedVars = array_unique($matches[0]);
+
+                                                foreach ($usedVars as $var) {
+                                                    if (!in_array($var, $allowedVars)) {
+                                                        $fail("Переменная '{$var}' не существует. Доступные переменные: " . implode(', ', $allowedVars));
+                                                        return;
+                                                    }
+                                                }
+
+                                                try {
+                                                    $testValues = array_fill_keys($allowedVars, 1);
+                                                    eval('return ' . $value . ';');
+                                                } catch (\Throwable $e) {
+                                                    $fail("Ошибка в синтаксисе формулы: " . $e->getMessage());
+                                                }
+                                            };
+                                        },
+                                    ]),
+
+                                Forms\Components\Grid::make()
+                                    ->schema([
+                                        Forms\Components\Select::make('formula_helper')
+                                            ->label('Добавить переменную')
+                                            ->options(function ($get) {
+                                                $options = ['price' => 'Базовая цена (price)'];
+                                                $inputs = $get('calculator_config.inputs') ?? [];
+
+                                                foreach ($inputs as $input) {
+                                                    if (isset($input['key'])) {
+                                                        if (in_array($input['type'], ['number', 'range'])) {
+                                                            $options[$input['key']] = $input['label'] . ' (' . $input['key'] . ')';
+                                                        }
+
+                                                        if (in_array($input['type'], ['select', 'checkbox_group'])) {
+                                                            $options[$input['key'].'_multiplier'] = $input['label'] . ' множитель (' . $input['key'].'_multiplier)';
+                                                        }
+                                                    }
+                                                }
+
+                                                return $options;
+                                            })
+                                            ->live()
+                                            ->afterStateUpdated(function ($state, Forms\Set $set, $get) {
+                                                if ($state) {
+                                                    $currentFormula = $get('calculator_config.formula') ?? '';
+                                                    $set('calculator_config.formula', trim($currentFormula . ' ' . $state));
+                                                    $set('formula_helper', null);
+                                                }
+                                            })
+                                            ->columnSpan(2),
+
+                                        Forms\Components\Select::make('formula_operator')
+                                            ->label('Добавить оператор')
+                                            ->options([
+                                                '+' => '+ (сложение)',
+                                                '-' => '- (вычитание)',
+                                                '*' => '* (умножение)',
+                                                '/' => '/ (деление)',
+                                                '(' => '( (открыть скобку)',
+                                                ')' => ') (закрыть скобку)',
+                                            ])
+                                            ->live()
+                                            ->afterStateUpdated(function ($state, Forms\Set $set, $get) {
+                                                if ($state) {
+                                                    $currentFormula = $get('calculator_config.formula') ?? '';
+                                                    $set('calculator_config.formula', trim($currentFormula . ' ' . $state));
+                                                    $set('formula_operator', null);
+                                                }
+                                            })
+                                    ])
+                            ])
+                    ])->columnSpanFull()
             ]);
     }
 
