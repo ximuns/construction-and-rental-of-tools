@@ -9,20 +9,15 @@
              x-data="{ phone: '' }"
              x-init="
              $nextTick(() => {
-                 const mask = IMask($refs.phoneInput, {
+                 IMask($refs.phoneInput, {
                      mask: '+{7} (000) 000-00-00',
-                     lazy: false
-                 });
-                 mask.on('accept', () => {
-                     $wire.set('phone', mask.value);
-                 });
-                 $wire.$watch('phone', (value) => {
-                     if (value !== mask.value) {
-                         mask.updateValue();
+                     lazy: false,
+                     commit: function(value, masked) {
+                         $wire.set('phone', masked.value);
                      }
                  });
              })
-         ">
+        ">
             <label for="phone" class="contact__label">Телефон</label>
             <input
                 x-ref="phoneInput"
@@ -32,6 +27,7 @@
                 class="contact__input"
                 type="text"
                 placeholder="+7 (___) ___-__-__"
+                data-mask="+7 (____) ___-__-__"
             >
             @error('phone') <span class="contact__error">{{ $message }}</span> @enderror
         </div>
@@ -44,10 +40,12 @@
     <div class="contact__formGroup">
         <label for="services" class="contact__nameInput">Услуга</label>
         <select wire:model="services" name="services" id="services" class="contact__selectOptions">
-            <option class="contact_option" value="">Другое</option>
-            <option class="contact_option" value="brick">Кирпич</option>
-            <option class="contact_option" value="panel">Панель</option>
-            <option class="contact_option" value="block">Блок</option>
+            <option value="">Выберите услугу</option>
+            @forelse($allServices as $service)
+                <option value="{{ $service->title }}">{{ $service->title }}</option>
+            @empty
+                <option value="Другое">Другое</option>
+            @endforelse
         </select>
         @error('services') <span class="contact__error">{{ $message }}</span> @enderror
     </div>

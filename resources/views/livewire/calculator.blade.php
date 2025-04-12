@@ -34,14 +34,15 @@
                             <div class="calculator__input">
                                 <div class="calculator__label">
                                     <label class="calculator__nameInput">{{ $input['label'] }}</label>
-                                    <p class="calculator__inputNumber">{{ $input['value'] }}</p>
+                                    <p class="calculator__inputNumber" id="range-value-{{ $key }}">{{ $input['value'] }}</p>
                                 </div>
                                 <input
                                     type="range"
                                     class="calculator__range"
                                     wire:model.lazy="inputs.{{ $key }}.value"
-                                    min="{{ $input['min'] ?? 0 }}"
-                                    max="{{ $input['max'] ?? 100 }}"
+                                min="{{ $input['min'] ?? 0 }}"
+                                max="{{ $input['max'] ?? 100 }}"
+                                oninput="document.getElementById('range-value-{{ $key }}').textContent = this.value"
                                 >
                             </div>
                         @elseif($input['type'] === 'number')

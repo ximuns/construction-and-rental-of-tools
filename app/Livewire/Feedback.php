@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Service;
 use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Component;
 
@@ -27,6 +28,11 @@ class Feedback extends Component
         'phone.regex' => 'Некорректный формат телефона.',
         'services.required' => 'Выберите хотя услугу.',
     ];
+
+    public function getAllServices()
+    {
+        return Service::all();
+    }
 
     public function submit()
     {
@@ -61,6 +67,8 @@ class Feedback extends Component
 
     public function render()
     {
-        return view('livewire.feedback');
+        return view('livewire.feedback' , [
+            'allServices' => $this->getAllServices(),
+        ]);
     }
 }
