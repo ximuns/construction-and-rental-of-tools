@@ -61,7 +61,8 @@ body {
     a {
         text-decoration: none;
         color: #fff;
-        font-size: 25px;
+        font-size: 16px;
+        max-width: 100px;
     }
 }
 

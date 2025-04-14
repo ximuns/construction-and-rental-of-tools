@@ -3,7 +3,7 @@
         <div class="footer__content">
             <div class="footer__top">
                 <div class="footer__logo">
-                    <a class="footer__logoLink" href="/">СТРОЙЛАЙН</a>
+                    <a class="footer__logoLink" href="/">Монтаж пластиковых и алюминиевых окон, дверей</a>
                 </div>
                 <menu class="footer__links">
                     <?php if ($_SERVER['REQUEST_URI'] === '/portfolio' || $_SERVER['REQUEST_URI'] === '/rent'): ?>
