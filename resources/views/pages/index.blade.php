@@ -42,7 +42,7 @@
             <div class="advantages__content">
                 <div class="advantages__main">
                     <h1 class="advantages__title" >Наш подход к работе</h1>
-                    <p class="advantages__subtitle" >Мы не просто строим - мы создаем пространства, которые идеально соответствуют вашим потребностям и предпочтениям</p>
+                    <p class="advantages__subtitle" >Мы не просто строим — мы создаем пространства, которые идеально соответствуют вашим потребностям и предпочтениям</p>
                 </div>
                 <div class="advantages__cards">
                     <livewire:advantages-page />

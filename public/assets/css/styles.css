@@ -1480,6 +1480,15 @@ input:checked + .calculator__slider:before {
         align-items: start;
     }
 
+    .root__header {
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .main__cube_full{
+        left: 25px;
+    }
+
     .footer__links {
         padding: 0;
         gap: 30px;
