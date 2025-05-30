@@ -11,12 +11,16 @@
     <link rel="stylesheet" href="{{ asset('assets/css/portfolio.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/rent.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/up.css') }}">
     <link rel="icon" href="{{ asset('assets/image/icon.svg') }}" type="image/svg+xml">
     <script src="https://unpkg.com/imask"></script>
 </head>
 <body>
     @include('partials.header')
     <main>
+        <div class="upward" onclick="scrollTopTop()">
+            <img class="upward__img" src="{{ asset('assets/image/charup.svg') }}" alt="">
+        </div>
         @livewire('rent-modal')
         @yield('content')
     </main>

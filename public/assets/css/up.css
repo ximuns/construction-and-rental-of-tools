@@ -1,0 +1,31 @@
+.upward {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 70px;
+  height: 70px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius:100px;    
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s;
+  z-index: 1000;
+}
+.upward__img {
+
+  bottom: 40px;
+  right: 40px;
+  width: 70px;
+  height: 70px;
+  font-size: 24px;
+  border-radius:100px;    
+  cursor: pointer;
+}
+
+.upward.active{
+    bottom: 40px;
+    visibility: visible;
+    opacity: 1;
+}
