@@ -1,66 +1,613 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# СТРОИТЕЛЬСТВО · АРЕНДА ИНСТРУМЕНТОВ
 
-## About Laravel
+### Веб-приложение для строительной компании
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<br>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<img src="public/assets/image/logo.svg" alt="Логотип" width="220">
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<br><br>
 
-## Learning Laravel
+<img src="https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white">
+<img src="https://img.shields.io/badge/Laravel-12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white">
+<img src="https://img.shields.io/badge/Livewire-3-4E56A6?style=for-the-badge&logo=livewire&logoColor=white">
+<img src="https://img.shields.io/badge/Filament-3-FDAE4B?style=for-the-badge">
+<img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<br><br>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+**калькулятор стоимости · каталог аренды · заявки**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+</div>
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# О проекте
 
-### Premium Partners
+Веб-приложение для компании, занимающейся строительством, отделочными работами и арендой профессионального инструмента.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Проект объединяет несколько направлений в одном Laravel-приложении:
 
-## Contributing
+```text
+                       САЙТ
+                        │
+        ┌───────────────┼────────────────┐
+        │               │                │
+        ▼               ▼                ▼
+     УСЛУГИ        КАЛЬКУЛЯТОР        АРЕНДА
+        │               │                │
+        │               ▼                ├── Категории
+        │        Расчёт стоимости        ├── Поиск
+        │               │                └── Заявка
+        ▼               ▼
+   ПОРТФОЛИО     ОБРАТНАЯ СВЯЗЬ
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
 
-## Code of Conduct
+Главная особенность проекта — **динамический калькулятор стоимости**, администратор может изменять структуру калькулятора, создат свою формулу, добавить нужные параметры в зависимости от которых будет формироваться итоговая цена.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+# Моя роль
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Full-stack разработка
 
-## License
+Я отвечал за техническую реализацию проекта:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* архитектура Laravel-приложения;
+* backend;
+* модели и связи базы данных;
+* Blade-шаблоны;
+* Livewire-компоненты;
+* динамический калькулятор;
+* каталог аренды;
+* поиск и фильтрация;
+* формы заявок;
+* интерактивные элементы;
+* адаптивная верстка;
+* SEO;
+* интеграция административной части;
+* работа с файловыми ресурсами.
+
+---
+
+# Технологический стек
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### Backend
+
+**PHP 8.2+**
+
+**Laravel 12**
+
+**Eloquent ORM**
+
+**Livewire**
+
+**Filament**
+
+</td>
+
+<td width="50%" valign="top">
+
+### Frontend
+
+**Blade**
+
+**HTML5**
+
+**CSS3**
+
+**Tailwind CSS 4**
+
+**JavaScript**
+
+**Vite 6**
+
+**Inputmask**
+
+</td>
+</tr>
+</table>
+
+---
+
+# Главная техническая особенность
+
+## Динамический калькулятор стоимости
+
+Вместо создания отдельного калькулятора под каждую услугу логика построена как **конфигурируемая система**.
+
+Каждая услуга может содержать собственную конфигурацию:
+
+```text
+Услуга
+│
+├── Базовая цена
+│
+├── Поля калькулятора
+│   ├── Числовое поле
+│   ├── Ползунок
+│   ├── Выпадающий список
+│   └── Группа переключателей
+│
+├── Варианты
+│   ├── Значение
+│   └── Множитель
+│
+└── Формула
+```
+
+Конфигурация хранится в JSON и преобразуется в интерфейс непосредственно во время работы приложения.
+
+---
+
+# Типы элементов
+
+Калькулятор поддерживает четыре типа входных данных:
+
+| Тип              | Назначение                      |
+| ---------------- | ------------------------------- |
+| `number`         | Числовое значение               |
+| `range`          | Ползунок с диапазоном           |
+| `select`         | Выбор одного варианта           |
+| `checkbox_group` | Набор дополнительных параметров |
+
+Это позволяет создавать разные сценарии расчёта без переписывания самого Livewire-компонента.
+
+---
+
+# Множители
+
+Для вариантов выбора поддерживается изменение базовой стоимости через множители.
+
+Например:
+
+```text
+1.00  → базовая стоимость
+1.05  → +5%
+1.10  → +10%
+1.25  → +25%
+```
+
+Для группы дополнительных параметров множители могут суммироваться.
+
+Так один и тот же механизм может учитывать особенности конкретной услуги.
+
+---
+
+# Формулы
+
+Формула не зашита непосредственно в интерфейс.
+
+Она хранится в конфигурации выбранной услуги и выполняется через:
+
+```php
+Symfony\Component\ExpressionLanguage\ExpressionLanguage
+```
+
+Принцип работы:
+
+```text
+Базовая цена
+      +
+значения полей
+      +
+множители
+      ↓
+   Формула
+      ↓
+ Итоговая стоимость
+```
+
+Перед вычислением выполняется проверка используемых переменных, после чего результат округляется.
+
+---
+
+# Livewire
+
+Калькулятор построен как отдельный Livewire-компонент.
+
+Изменение значения любого поля приводит к перерасчёту результата без перезагрузки страницы.
+
+```text
+Пользователь
+     │
+     ▼
+Изменяет значение
+     │
+     ▼
+Livewire
+     │
+     ▼
+calculate()
+     │
+     ▼
+ExpressionLanguage
+     │
+     ▼
+Новый результат
+```
+
+Это позволяет получить динамический интерфейс, сохраняя основную логику внутри Laravel.
+
+---
+
+# Каталог аренды
+
+Проект содержит отдельный каталог профессионального инструмента.
+
+```text
+АРЕНДА
+│
+├── Категории
+│
+├── Инструменты
+│   ├── Название
+│   ├── Описание
+│   ├── Изображение
+│   ├── Цена
+│   └── Доступность
+│
+├── Поиск
+│
+├── Фильтрация
+│
+└── Заявка на аренду
+```
+
+Поиск и фильтрация реализованы через Livewire без перезагрузки страницы.
+
+Поддерживается:
+
+* поиск по названию;
+* поиск по описанию;
+* фильтрация по категории;
+* отображение доступности инструмента;
+* открытие формы аренды для конкретного инструмента.
+
+---
+
+# Обработка заявок
+
+В проекте реализованы две основные точки взаимодействия:
+
+```text
+                     ФОРМЫ
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+          ▼                         ▼
+   ОБРАТНАЯ СВЯЗЬ               АРЕНДА
+          │                         │
+          ▼                         ▼
+      Feedback                  RentUser
+          │                         │
+          └────────────┬────────────┘
+                       ▼
+                    БАЗА ДАННЫХ
+```
+
+Для форм предусмотрены:
+
+* серверная валидация;
+* ограничения длины данных;
+* проверка email;
+* проверка номера телефона;
+* обработка ошибок;
+* защита от слишком частых отправок формы.
+
+---
+
+# Структура приложения
+
+Основные модели:
+
+```text
+Service
+CategoryRent
+Rent
+RentUser
+Feedback
+Portfolio
+CategoryPortfolio
+Contact
+User
+```
+
+Основная логика разделена между:
+
+```text
+app/
+├── Http/
+│   └── Controllers/
+│
+├── Livewire/
+│   ├── Calculator.php
+│   ├── RentPage.php
+│   ├── RentModal.php
+│   ├── Feedback.php
+│   └── ...
+│
+├── Models/
+│
+└── Filament/
+```
+
+---
+
+# Архитектура
+
+```text
+                         БРАУЗЕР
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │ Blade / HTML  │
+                    └───────┬───────┘
+                            │
+                            ▼
+                     ┌─────────────┐
+                     │   Livewire  │
+                     └──────┬──────┘
+                            │
+                            ▼
+                     ┌─────────────┐
+                     │   Laravel   │
+                     ├─────────────┤
+                     │ Controllers │
+                     │ Models      │
+                     │ Validation  │
+                     └──────┬──────┘
+                            │
+               ┌────────────┴────────────┐
+               ▼                         ▼
+        ┌───────────────┐        ┌────────────────┐
+        │    Eloquent   │        │ Expression     │
+        │      ORM      │        │ Language       │
+        └───────┬───────┘        └────────────────┘
+                │
+                ▼
+          ┌───────────┐
+          │  MySQL /  │
+          │  SQLite   │
+          └───────────┘
+```
+
+---
+
+# Страницы
+
+В приложении предусмотрены основные маршруты:
+
+```text
+/
+│
+├── Главная
+│
+├── /portfolio
+│   └── Портфолио работ
+│
+└── /rent
+    └── Каталог аренды
+```
+
+Главная страница объединяет:
+
+```text
+Главная
+├── Первый экран
+├── Услуги
+├── Преимущества
+├── Калькулятор
+├── Аренда инструментов
+└── Обратная связь
+```
+
+---
+
+# Особенности реализации
+
+| Задача                   | Решение                                       |
+| ------------------------ | --------------------------------------------- |
+| Динамический калькулятор | Livewire                                      |
+| Конфигурация полей       | JSON                                          |
+| Вычисление формул        | ExpressionLanguage                            |
+| Разные типы ввода        | `number`, `range`, `select`, `checkbox_group` |
+| Изменение цены           | Множители                                     |
+| Перерасчёт               | Livewire                                      |
+| Каталог аренды           | Eloquent                                      |
+| Поиск                    | Livewire                                      |
+| Фильтрация               | Livewire                                      |
+| Формы                    | Livewire + Laravel                            |
+| Валидация                | Laravel Validation                            |
+| Ограничение запросов     | RateLimiter                                   |
+| Шаблоны                  | Blade                                         |
+| Сборка                   | Vite                                          |
+| Стили                    | Tailwind CSS                                  |
+
+---
+
+# Почему калькулятор интересен с технической точки зрения
+
+Обычный калькулятор обычно представляет собой набор условий:
+
+```php
+if ($service === 'house') {
+    // ...
+}
+
+if ($service === 'fence') {
+    // ...
+}
+
+if ($service === 'windows') {
+    // ...
+}
+```
+
+В этом проекте подход другой.
+
+```text
+                  КОНФИГУРАЦИЯ
+                       │
+                       ▼
+              ┌─────────────────┐
+              │      Service     │
+              ├─────────────────┤
+              │ price            │
+              │ inputs[]         │
+              │ formula          │
+              └────────┬────────┘
+                       │
+                       ▼
+                 УНИВЕРСАЛЬНЫЙ
+                  CALCULATOR
+                       │
+          ┌────────────┼────────────┐
+          ▼            ▼            ▼
+       number        select       range
+          │            │            │
+          └────────────┼────────────┘
+                       ▼
+                    РАСЧЁТ
+```
+
+За счёт этого структура калькулятора отделена от конкретной услуги.
+
+Добавление нового сценария расчёта не требует создания нового Livewire-компонента.
+
+---
+
+# Результат
+
+В итоге получился полноценный веб-продукт для строительной компании, объединяющий:
+
+### Сайт
+
+Представление компании, услуг и выполненных работ.
+
+### Калькулятор
+
+Динамический инструмент предварительного расчёта стоимости.
+
+### Аренду
+
+Каталог строительного инструмента с поиском и фильтрацией.
+
+### Портфолио
+
+Вывод выполненных работ по категориям.
+
+### Обратную связь
+
+Формы для обращений и заявок.
+
+---
+
+# Запуск проекта
+
+### Клонирование
+
+```bash
+git clone https://github.com/ximuns/construction-and-rental-of-tools.git
+cd construction-and-rental-of-tools
+```
+
+### Установка PHP-зависимостей
+
+```bash
+composer install
+```
+
+### Настройка окружения
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+### Миграции
+
+```bash
+php artisan migrate
+```
+
+### Установка frontend-зависимостей
+
+```bash
+npm install
+```
+
+### Запуск
+
+```bash
+npm run dev
+```
+
+В отдельном терминале:
+
+```bash
+php artisan serve
+```
+
+---
+
+# Команды
+
+```bash
+npm run dev
+```
+
+Запуск Vite в режиме разработки.
+
+```bash
+npm run build
+```
+
+Production-сборка frontend.
+
+```bash
+php artisan migrate
+```
+
+Применение миграций базы данных.
+
+```bash
+php artisan serve
+```
+
+Запуск Laravel development server.
+
+---
+
+# Исходный код
+
+Этот репозиторий содержит исходный код проекта и демонстрирует подход к разработке Laravel-приложений, работе с Livewire, динамическими формами и конфигурируемой бизнес-логикой.
+
+---
+
+<div align="center">
+
+### PHP · Laravel · Livewire · Filament · Tailwind CSS
+
+<br>
+
+**XIMUNS**
+
+Full-stack разработчик
+
+<br>
+
+[GitHub](https://github.com/ximuns)
+
+<br><br>
+
+`Laravel · Livewire · Dynamic Calculator`
+
+</div>
